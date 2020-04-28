@@ -116,7 +116,7 @@ public class WordsActivity extends BaseActivity {
 
     @Override
     protected int initLayout() {
-        return R.layout.searchwords;
+        return R.layout.layout_words;
     }
 
     @Override

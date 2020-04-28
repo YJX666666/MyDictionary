@@ -55,13 +55,13 @@ public class ChooseActivity extends BaseActivity implements View.OnClickListener
         mSQLiteDatabase = mSQWordsHelper.getWritableDatabase();
         mBtnNext.setVisibility(View.GONE);
         //获取需要测试的单词和翻译
-        setAnswer();
+        setData();
 
     }
 
-    private void setAnswer() {
+    private void setData() {
         //获取四组数据
-        mListWords = WordsUtils.get(mContext);
+        mListWords = WordsUtils.getChoose(mContext);
         //需要测试的组赋值
         mString_English = mListWords.get(0).getEnglish();
         mString_Chinese = mListWords.get(0).getChinses();
@@ -206,7 +206,7 @@ public class ChooseActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.btn_next://下一个
                 reSet();
-                setAnswer();
+                setData();
                 mBtnNext.setVisibility(View.GONE);
                 break;
             case R.id.txv_grasp:

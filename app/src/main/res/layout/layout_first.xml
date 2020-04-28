@@ -21,7 +21,7 @@
         android:layout_marginLeft="80dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="80dp"
-        android:text="@string/str_choose" />
+        android:text="@string/str_choose2" />
 
     <com.yjx.androidword.MyView.MyFirstButton
         android:id="@+id/btn_mode_choose2"
@@ -30,7 +30,7 @@
         android:layout_marginLeft="80dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="80dp"
-        android:text="@string/str_choose2" />
+        android:text="@string/str_choose" />
 
     <com.yjx.androidword.MyView.MyFirstButton
         android:id="@+id/btn_mode_fill"
@@ -40,6 +40,15 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="80dp"
         android:text="@string/str_fill" />
+
+    <com.yjx.androidword.MyView.MyFirstButton
+        android:id="@+id/btn_mode_fill2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="80dp"
+        android:text="@string/str_fill2" />
 
     <com.yjx.androidword.MyView.MyFirstButton
         android:id="@+id/btn_addwords"

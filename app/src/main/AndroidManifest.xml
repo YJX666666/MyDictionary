@@ -22,13 +22,12 @@
             </intent-filter>
         </activity>
 
-
         <activity
-            android:name=".Activity.ChooseActivity"
+            android:name=".Activity.AddWordsActivity"
             tools:ignore="InnerclassSeparator" />
 
         <activity
-            android:name=".Activity.AddWordsActivity"
+            android:name=".Activity.ChooseActivity"
             tools:ignore="InnerclassSeparator" />
 
         <activity
@@ -37,6 +36,10 @@
 
         <activity
             android:name=".Activity.FillActivity"
+            tools:ignore="InnerclassSeparator" />
+
+        <activity
+            android:name=".Activity.Fill2Activity"
             tools:ignore="InnerclassSeparator" />
 
         <activity

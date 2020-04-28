@@ -9,7 +9,6 @@ import com.yjx.androidword.BaseActivity;
 import com.yjx.androidword.R;
 import com.yjx.androidword.SQLiteHelper.SQWordsHelper;
 import com.yjx.androidword.Utils.JumpUtils;
-import com.yjx.androidword.Utils.WordsUtils;
 
 public class FirstActivity extends BaseActivity implements View.OnClickListener {
 
@@ -25,16 +24,18 @@ public class FirstActivity extends BaseActivity implements View.OnClickListener 
     private Cursor mCursor;
     private com.yjx.androidword.MyView.MyFirstButton mBtnSearch;
     private com.yjx.androidword.MyView.MyFirstButton mBtnDescription;
+    private com.yjx.androidword.MyView.MyFirstButton mBtnModeFill2;
 
     @Override
     protected void initData() {
         mBtnAddwords.setOnClickListener(this);
         mBtnWordselect.setOnClickListener(this);
         mBtnModeChoose.setOnClickListener(this);
+        mBtnModeChoose2.setOnClickListener(this);
         mBtnModeFill.setOnClickListener(this);
+        mBtnModeFill2.setOnClickListener(this);
         mTxvAbout.setOnClickListener(this);
         mBtnDescription.setOnClickListener(this);
-        mBtnModeChoose2.setOnClickListener(this);
         mBtnSearch.setOnClickListener(this);
         mSQHelper = new SQWordsHelper(mContext);
         mSQLiteDatabase = mSQHelper.getWritableDatabase();
@@ -43,25 +44,25 @@ public class FirstActivity extends BaseActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_mode_choose://中-英
+            case R.id.btn_mode_choose://选择 英-中
 
-                if (isEmpty()) {
+                if (isEmpty4()) {
                     JumpUtils.To(mContext, ChooseActivity.class);
                 } else {
                     Toast.makeText(mContext, "词库内单词低于4个，无法进入此模式！请先添加！", Toast.LENGTH_SHORT).show();
                 }
 
                 break;
-            case R.id.btn_mode_choose2://英-中
+            case R.id.btn_mode_choose2://选择 中-英
 
-                if (isEmpty()) {
+                if (isEmpty4()) {
                     JumpUtils.To(mContext, Choose2Activity.class);
                 } else {
-                    Toast.makeText(mContext, "词库内没有单词，请先添加！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "词库内单词低于4个，无法进入此模式！请先添加！", Toast.LENGTH_SHORT).show();
                 }
 
                 break;
-            case R.id.btn_mode_fill://填写
+            case R.id.btn_mode_fill://填写 英-中
 
                 if (isEmpty()) {
                     JumpUtils.To(mContext, FillActivity.class);
@@ -70,7 +71,16 @@ public class FirstActivity extends BaseActivity implements View.OnClickListener 
                 }
 
                 break;
-            case R.id.btn_addwords://添加
+            case R.id.btn_mode_fill2://填写 中-英
+
+                if (isEmpty()) {
+                    JumpUtils.To(mContext, Fill2Activity.class);
+                } else {
+                    Toast.makeText(mContext, "词库内没有单词，请先添加！", Toast.LENGTH_SHORT).show();
+                }
+
+                break;
+            case R.id.btn_addwords://添加单词
                 JumpUtils.To(mContext, AddWordsActivity.class);
                 break;
             case R.id.btn_search://查询词库
@@ -94,6 +104,13 @@ public class FirstActivity extends BaseActivity implements View.OnClickListener 
         return mCursor.getCount() != 0;
     }
 
+
+    //判断数据库是否超过4个
+    private boolean isEmpty4() {
+        mCursor = mSQLiteDatabase.query(SQWordsHelper.TABLE_NAME, null, null, null, null, null, null);
+        return mCursor.getCount() >= 4;
+    }
+
     @Override
     protected int initLayout() {
         return R.layout.layout_first;
@@ -109,6 +126,7 @@ public class FirstActivity extends BaseActivity implements View.OnClickListener 
         mBtnModeChoose2 = findViewById(R.id.btn_mode_choose2);
         mBtnSearch = findViewById(R.id.btn_search);
         mBtnDescription = findViewById(R.id.btn_description);
+        mBtnModeFill2 = findViewById(R.id.btn_mode_fill2);
     }
 
 }

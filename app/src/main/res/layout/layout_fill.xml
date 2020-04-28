@@ -18,38 +18,24 @@
         android:textSize="26sp"
         android:textStyle="bold" />
 
-
-    <com.yjx.androidword.MyView.MyFirstButton
-        android:id="@+id/btn_a"
+    <TextView
+        android:id="@+id/txv_answer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginRight="80dp" />
+        android:gravity="center"
+        android:textColor="@color/colorRed"
+        android:textSize="26sp"
+        android:textStyle="bold" />
 
-    <com.yjx.androidword.MyView.MyFirstButton
-        android:id="@+id/btn_b"
+    <com.yjx.androidword.MyView.MyEditText
+        android:id="@+id/edit_answer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="80dp" />
-
-    <com.yjx.androidword.MyView.MyFirstButton
-        android:id="@+id/btn_c"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="80dp" />
-
-    <com.yjx.androidword.MyView.MyFirstButton
-        android:id="@+id/btn_d"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="80dp" />
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20sp"
+        android:layout_marginRight="30dp"
+        android:hint="@string/str_translation"
+        android:padding="10dp" />
 
     <LinearLayout
         android:layout_width="match_parent"

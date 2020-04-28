@@ -55,10 +55,9 @@ public class AddWordsActivity extends BaseActivity {
         }
     }
 
-
     @Override
     protected int initLayout() {
-        return R.layout.addwords;
+        return R.layout.layout_addwords;
     }
 
     @Override
