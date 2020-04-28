@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_stroke"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txv_english"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:background="@color/colorWhite"
+            android:gravity="center"
+            android:textColor="@color/colorBlack" />
+
+        <TextView
+            android:id="@+id/txv_chinese"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:background="@color/colorWhite"
+            android:gravity="center"
+            android:textColor="@color/colorBlack" />
+
+        <TextView
+            android:id="@+id/txv_del"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorRed"
+            android:gravity="center"
+            android:shadowColor="@color/colorShadowBlack"
+            android:shadowDx="5"
+            android:shadowDy="5"
+            android:shadowRadius="10"
+            android:text="@string/str_del"
+            android:textColor="@color/colorWhite"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/txv_modify"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/colorGreen"
+            android:gravity="center"
+            android:shadowColor="@color/colorShadowBlack"
+            android:shadowDx="5"
+            android:shadowDy="5"
+            android:shadowRadius="10"
+            android:text="@string/str_modify"
+            android:textColor="@color/colorWhite"
+            android:textSize="22sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

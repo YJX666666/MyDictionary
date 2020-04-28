@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">MyDictionary</string>
+
+    <string name="str_choose">选择模式（中-英）</string>
+    <string name="str_choose2">选择模式（英-中）</string>
+    <string name="str_fill">填空模式（中-英）</string>
+    <string name="str_wordselect">词库选择</string>
+    <string name="str_addwords">添加单词</string>
+    <string name="str_search">查看当前词库</string>
+    <string name="str_description">软件说明</string>
+    <string name="str_about">关于</string>
+    <string name="str_english">单词</string>
+    <string name="str_chinese">中文</string>
+    <string name="str_no">×</string>
+    <string name="str_yes">√</string>
+    <string name="str_del">删除</string>
+    <string name="str_modify">修改</string>
+    <string name="str_grasp">完全掌握这个单词了</string>
+    <string name="str_next">下一个</string>
+</resources>
