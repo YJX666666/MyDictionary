@@ -7,19 +7,10 @@
     android:orientation="vertical">
 
     <com.yjx.androidword.MyView.MyFirstButton
-        android:id="@+id/btn_wordselect"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="80dp"
-        android:layout_marginRight="80dp"
-        android:text="@string/str_wordselect" />
-
-    <com.yjx.androidword.MyView.MyFirstButton
         android:id="@+id/btn_mode_choose"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="80dp"
-        android:layout_marginTop="10dp"
         android:layout_marginRight="80dp"
         android:text="@string/str_choose2" />
 
@@ -30,7 +21,7 @@
         android:layout_marginLeft="80dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="80dp"
-        android:text="@string/str_choose" />
+        android:text="@string/str_choose1" />
 
     <com.yjx.androidword.MyView.MyFirstButton
         android:id="@+id/btn_mode_fill"
@@ -39,7 +30,7 @@
         android:layout_marginLeft="80dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="80dp"
-        android:text="@string/str_fill" />
+        android:text="@string/str_fill1" />
 
     <com.yjx.androidword.MyView.MyFirstButton
         android:id="@+id/btn_mode_fill2"
@@ -66,7 +57,7 @@
         android:layout_marginLeft="80dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="80dp"
-        android:text="@string/str_search" />
+        android:text="@string/str_dictionary" />
 
     <com.yjx.androidword.MyView.MyFirstButton
         android:id="@+id/btn_description"

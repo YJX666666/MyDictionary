@@ -22,9 +22,13 @@
 
 
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorTxvBG">#80E3AF03</color>
+    <color name="colorDeGray">#8C5023</color>
     <color name="colorBlack">#000000</color>
     <color name="colorGreen">#00FF09</color>
     <color name="colorRed">#FF1100</color>
+    <color name="colorLightGray">#5F5251</color>
+    <color name="colorLightYellow">#E6E6DF</color>
 
 
 

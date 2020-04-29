@@ -7,7 +7,6 @@ import android.view.View;
 
 public class DialogUtils {
 
-
     //自定义View对话框
     public static Dialog show(Context context, View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context)
@@ -17,6 +16,5 @@ public class DialogUtils {
         dialog.getWindow().getDecorView().setBackground(null);
         return dialog;
     }
-
 
 }

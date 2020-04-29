@@ -8,21 +8,22 @@ import android.widget.Toast;
 
 import com.yjx.androidword.BaseActivity;
 import com.yjx.androidword.R;
-import com.yjx.androidword.SQLiteHelper.SQWordsHelper;
+import com.yjx.androidword.SQLiteHelper.DictionaryHelper;
+import com.yjx.androidword.Utils.ToastUtils;
 
 public class AddWordsActivity extends BaseActivity {
     private android.widget.EditText mEditEnglish;
     private android.widget.EditText mEditChinese;
     private android.widget.Button mBtnAdd;
 
-    SQWordsHelper mSQHelper;
+    DictionaryHelper mSQHelper;
     SQLiteDatabase mSQLiteDatabase;
     ContentValues mContentValues;
 
     @Override
     protected void initData() {
 
-        mSQHelper = new SQWordsHelper(mContext);
+        mSQHelper = new DictionaryHelper(mContext);
         mSQLiteDatabase = mSQHelper.getWritableDatabase();
 
         mBtnAdd.setOnClickListener(new View.OnClickListener() {
@@ -34,19 +35,20 @@ public class AddWordsActivity extends BaseActivity {
 
                 if (!TextUtils.isEmpty(english) && !TextUtils.isEmpty(chinese)) {
                     initSQLiteData(english, chinese);
+                } else {
+                    ToastUtils.show(mContext, "单词或翻译都不能为空噢！");
                 }
 
             }
         });
 
-
     }
 
     private void initSQLiteData(String english, String chinese) {
         mContentValues = new ContentValues();
-        mContentValues.put(SQWordsHelper.WORD, english);
-        mContentValues.put(SQWordsHelper.CHINESE, chinese);
-        if (mSQLiteDatabase.insert(SQWordsHelper.TABLE_NAME, null, mContentValues) == -1) {
+        mContentValues.put(DictionaryHelper.ENGLISH, english);
+        mContentValues.put(DictionaryHelper.CHINESE, chinese);
+        if (mSQLiteDatabase.insert(DictionaryHelper.TABLE_NAME, null, mContentValues) == -1) {
             Toast.makeText(mContext, "添加失败！", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(mContext, "添加成功！", Toast.LENGTH_SHORT).show();

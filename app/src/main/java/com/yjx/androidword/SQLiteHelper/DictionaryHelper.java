@@ -4,21 +4,20 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class SQWordsHelper extends SQLiteOpenHelper {
+public class DictionaryHelper extends SQLiteOpenHelper {
 
-    public static final String WORD = "word";
-    public static final String DB_NAME = WORD + "s.db";
-    public static final String TABLE_NAME = WORD + "s";
+    public static final String ENGLISH = "word";
     public static final String CHINESE = "chinese";
+    public static final String DB_NAME = ENGLISH + "s.db";
+    public static final String TABLE_NAME = ENGLISH + "s";
 
-
-    public SQWordsHelper(Context context) {
+    public DictionaryHelper(Context context) {
         super(context, DB_NAME, null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_NAME + "(" + WORD + " text," + CHINESE + " text)");
+        db.execSQL("create table " + TABLE_NAME + "(" + ENGLISH + " text," + CHINESE + " text)");
     }
 
     @Override

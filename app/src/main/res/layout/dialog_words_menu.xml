@@ -11,7 +11,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/txv_english"
+            android:id="@+id/edit_english"
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:background="@color/colorWhite"
@@ -19,7 +19,7 @@
             android:textColor="@color/colorBlack" />
 
         <TextView
-            android:id="@+id/txv_chinese"
+            android:id="@+id/edit_chinese"
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:background="@color/colorWhite"

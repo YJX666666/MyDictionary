@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.yjx.androidword.MyView.MyEditText
+        android:id="@+id/edit_english"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:hint="@string/str_english" />
+
+
+    <com.yjx.androidword.MyView.MyEditText
+        android:id="@+id/edit_chinese"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:hint="@string/str_chinese" />
+
+    <TextView
+        android:id="@+id/txv_modify"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorRed"
+        android:gravity="center"
+        android:shadowColor="@color/colorShadowBlack"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="10"
+        android:text="@string/str_modify"
+        android:textColor="@color/colorWhite"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/txv_cancel"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/colorGreen"
+        android:gravity="center"
+        android:shadowColor="@color/colorShadowBlack"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="10"
+        android:text="@string/str_cancel"
+        android:textColor="@color/colorWhite"
+        android:textSize="22sp" />
+
+</LinearLayout>

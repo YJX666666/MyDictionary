@@ -27,23 +27,23 @@
             tools:ignore="InnerclassSeparator" />
 
         <activity
-            android:name=".Activity.ChooseActivity"
+            android:name=".Activity.ChooseE2CActivity"
             tools:ignore="InnerclassSeparator" />
 
         <activity
-            android:name=".Activity.Choose2Activity"
+            android:name=".Activity.ChooseC2EActivity"
             tools:ignore="InnerclassSeparator" />
 
         <activity
-            android:name=".Activity.FillActivity"
+            android:name=".Activity.FillE2CActivity"
             tools:ignore="InnerclassSeparator" />
 
         <activity
-            android:name=".Activity.Fill2Activity"
+            android:name=".Activity.FillC2EActivity"
             tools:ignore="InnerclassSeparator" />
 
         <activity
-            android:name=".Activity.WordsActivity"
+            android:name=".Activity.DictionaryActivity"
             tools:ignore="InnerclassSeparator" />
 
 

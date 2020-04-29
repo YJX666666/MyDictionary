@@ -1,35 +1,41 @@
 package com.yjx.androidword.Activity;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yjx.androidword.BaseActivity;
 import com.yjx.androidword.R;
-import com.yjx.androidword.SQLiteHelper.SQWordsHelper;
+import com.yjx.androidword.SQLiteHelper.DictionaryHelper;
+import com.yjx.androidword.Utils.DialogUtils;
 import com.yjx.androidword.Utils.JumpUtils;
 
 public class FirstActivity extends BaseActivity implements View.OnClickListener {
 
-    private com.yjx.androidword.MyView.MyFirstButton mBtnWordselect;
     private com.yjx.androidword.MyView.MyFirstButton mBtnModeChoose;
     private com.yjx.androidword.MyView.MyFirstButton mBtnModeFill;
     private com.yjx.androidword.MyView.MyFirstButton mBtnAddwords;
     private android.widget.TextView mTxvAbout;
     private com.yjx.androidword.MyView.MyFirstButton mBtnModeChoose2;
-
-    private SQWordsHelper mSQHelper;
-    private SQLiteDatabase mSQLiteDatabase;
-    private Cursor mCursor;
     private com.yjx.androidword.MyView.MyFirstButton mBtnSearch;
     private com.yjx.androidword.MyView.MyFirstButton mBtnDescription;
     private com.yjx.androidword.MyView.MyFirstButton mBtnModeFill2;
+    private SQLiteDatabase mSQLiteDatabase;
+    private TextView mTxvModeChoose;
+    private TextView mTxvModeFill;
+    private TextView mTxvDescription;
+    private TextView mTxvDictionary;
+
 
     @Override
     protected void initData() {
         mBtnAddwords.setOnClickListener(this);
-        mBtnWordselect.setOnClickListener(this);
         mBtnModeChoose.setOnClickListener(this);
         mBtnModeChoose2.setOnClickListener(this);
         mBtnModeFill.setOnClickListener(this);
@@ -37,78 +43,124 @@ public class FirstActivity extends BaseActivity implements View.OnClickListener 
         mTxvAbout.setOnClickListener(this);
         mBtnDescription.setOnClickListener(this);
         mBtnSearch.setOnClickListener(this);
-        mSQHelper = new SQWordsHelper(mContext);
-        mSQLiteDatabase = mSQHelper.getWritableDatabase();
+        mTxvAbout.setOnClickListener(this);
+        //词库数据库
+        DictionaryHelper SQHelper = new DictionaryHelper(mContext);
+        mSQLiteDatabase = SQHelper.getWritableDatabase();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_mode_choose://选择 英-中
-
-                if (isEmpty4()) {
-                    JumpUtils.To(mContext, ChooseActivity.class);
-                } else {
-                    Toast.makeText(mContext, "词库内单词低于4个，无法进入此模式！请先添加！", Toast.LENGTH_SHORT).show();
-                }
-
+                if (cursorCount() > 4)
+                    JumpUtils.To(mContext, ChooseE2CActivity.class);
+                else
+                    Toast.makeText(mContext, "词库内单词低于5个，无法进入此模式！请先添加！", Toast.LENGTH_SHORT).show();
                 break;
+
             case R.id.btn_mode_choose2://选择 中-英
-
-                if (isEmpty4()) {
-                    JumpUtils.To(mContext, Choose2Activity.class);
-                } else {
-                    Toast.makeText(mContext, "词库内单词低于4个，无法进入此模式！请先添加！", Toast.LENGTH_SHORT).show();
-                }
-
+                if (cursorCount() > 4)
+                    JumpUtils.To(mContext, ChooseC2EActivity.class);
+                else
+                    Toast.makeText(mContext, "词库内单词低于5个，无法进入此模式！请先添加！", Toast.LENGTH_SHORT).show();
                 break;
+
             case R.id.btn_mode_fill://填写 英-中
-
-                if (isEmpty()) {
-                    JumpUtils.To(mContext, FillActivity.class);
-                } else {
+                if (cursorCount() != 0)
+                    JumpUtils.To(mContext, FillE2CActivity.class);
+                else
                     Toast.makeText(mContext, "词库内没有单词，请先添加！", Toast.LENGTH_SHORT).show();
-                }
-
                 break;
+
             case R.id.btn_mode_fill2://填写 中-英
-
-                if (isEmpty()) {
-                    JumpUtils.To(mContext, Fill2Activity.class);
-                } else {
+                if (cursorCount() != 0)
+                    JumpUtils.To(mContext, FillC2EActivity.class);
+                else
                     Toast.makeText(mContext, "词库内没有单词，请先添加！", Toast.LENGTH_SHORT).show();
-                }
-
                 break;
+
             case R.id.btn_addwords://添加单词
                 JumpUtils.To(mContext, AddWordsActivity.class);
                 break;
+
             case R.id.btn_search://查询词库
-
-                if (isEmpty()) {
-                    JumpUtils.To(mContext, WordsActivity.class);
-                } else {
+                if (cursorCount() != 0)
+                    JumpUtils.To(mContext, DictionaryActivity.class);
+                else
                     Toast.makeText(mContext, "词库内没有单词，请先添加！", Toast.LENGTH_SHORT).show();
-                }
-
                 break;
+
+            case R.id.btn_description://软件说明
+                showDescription();
+                break;
+
+            case R.id.txv_about://关于
+                View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_about, null);
+                Dialog dialog = DialogUtils.show(mContext, view);
+                break;
+
             default:
                 Toast.makeText(mContext, "攻城狮正在努力开发中！", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
 
-    //判断数据库是否为空 true为不空 false为空
-    private boolean isEmpty() {
-        mCursor = mSQLiteDatabase.query(SQWordsHelper.TABLE_NAME, null, null, null, null, null, null);
-        return mCursor.getCount() != 0;
+    //获取词库数量
+    @SuppressLint("Recycle")
+    private int cursorCount() {
+        Cursor cursor = mSQLiteDatabase.query(DictionaryHelper.TABLE_NAME, null, null, null, null, null, null);
+        return cursor.getCount();
     }
 
 
-    //判断数据库是否超过4个
-    private boolean isEmpty4() {
-        mCursor = mSQLiteDatabase.query(SQWordsHelper.TABLE_NAME, null, null, null, null, null, null);
-        return mCursor.getCount() >= 4;
+    //软件说明对话框
+    public void showDescription() {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_description, null);
+        //软件说明
+        Button btnDismiss = view.findViewById(R.id.btn_dismiss);
+        mTxvModeChoose = view.findViewById(R.id.txv_mode_choose);
+        mTxvModeFill = view.findViewById(R.id.txv_mode_fill);
+        mTxvDescription = view.findViewById(R.id.txv_description);
+        mTxvDictionary = view.findViewById(R.id.txv_dictionary);
+        final Dialog dialog = DialogUtils.show(mContext, view);
+        btnDismiss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //点击右上角 × 关闭弹窗
+                dialog.dismiss();
+            }
+        });
+        mTxvModeChoose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //点击选择模式
+                mTxvModeChoose.setBackgroundResource(R.drawable.txv_stroke);
+                mTxvModeFill.setBackground(null);
+                mTxvDictionary.setBackground(null);
+                mTxvDescription.setText(R.string.str_descrip_choose);
+            }
+        });
+        mTxvModeFill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //点击填空模式
+                mTxvModeFill.setBackgroundResource(R.drawable.txv_stroke);
+                mTxvModeChoose.setBackground(null);
+                mTxvDictionary.setBackground(null);
+                mTxvDescription.setText(R.string.str_descrip_fill);
+            }
+        });
+        mTxvDictionary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTxvDictionary.setBackgroundResource(R.drawable.txv_stroke);
+                mTxvModeChoose.setBackground(null);
+                mTxvModeFill.setBackground(null);
+                mTxvDescription.setText(R.string.str_descrip_dictionary);
+            }
+        });
+
     }
 
     @Override
@@ -118,7 +170,6 @@ public class FirstActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     protected void initView() {
-        mBtnWordselect = findViewById(R.id.btn_wordselect);
         mBtnModeChoose = findViewById(R.id.btn_mode_choose);
         mBtnModeFill = findViewById(R.id.btn_mode_fill);
         mBtnAddwords = findViewById(R.id.btn_addwords);

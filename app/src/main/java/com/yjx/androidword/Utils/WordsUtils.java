@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import com.yjx.androidword.Bean.WordsBean;
-import com.yjx.androidword.SQLiteHelper.SQWordsHelper;
+import com.yjx.androidword.SQLiteHelper.DictionaryHelper;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -15,7 +15,7 @@ public class WordsUtils {
 
     private static List<WordsBean> sList;
     private static List<WordsBean> sList_Return;
-    private static SQWordsHelper sMSQHelper;
+    private static DictionaryHelper sMSQHelper;
     private static Cursor sCursor;
     private static SQLiteDatabase sSQLiteDatabase;
     private static WordsBean sGetWordBean;
@@ -32,9 +32,9 @@ public class WordsUtils {
         sList = new ArrayList<>();
         sSetReturn = new HashSet<>();
         sList_Return = new ArrayList<>();
-        sMSQHelper = new SQWordsHelper(context);
+        sMSQHelper = new DictionaryHelper(context);
         sSQLiteDatabase = sMSQHelper.getWritableDatabase();
-        sCursor = sSQLiteDatabase.query(SQWordsHelper.TABLE_NAME, null, null, null, null, null, null);
+        sCursor = sSQLiteDatabase.query(DictionaryHelper.TABLE_NAME, null, null, null, null, null, null);
 
         //获取总词库
         while (sCursor.moveToNext()) {
@@ -72,9 +72,9 @@ public class WordsUtils {
     public static List<WordsBean> getFill(Context context) {
         sList = new ArrayList<>();
         sList_Return = new ArrayList<>();
-        sMSQHelper = new SQWordsHelper(context);
+        sMSQHelper = new DictionaryHelper(context);
         sSQLiteDatabase = sMSQHelper.getWritableDatabase();
-        sCursor = sSQLiteDatabase.query(SQWordsHelper.TABLE_NAME, null, null, null, null, null, null);
+        sCursor = sSQLiteDatabase.query(DictionaryHelper.TABLE_NAME, null, null, null, null, null, null);
 
         //获取总词库
         while (sCursor.moveToNext()) {

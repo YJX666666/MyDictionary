@@ -2,6 +2,7 @@ package com.yjx.androidword.Activity;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,36 +12,32 @@ import android.widget.TextView;
 import com.yjx.androidword.BaseActivity;
 import com.yjx.androidword.Bean.WordsBean;
 import com.yjx.androidword.R;
-import com.yjx.androidword.SQLiteHelper.SQWordsHelper;
+import com.yjx.androidword.SQLiteHelper.DictionaryHelper;
 import com.yjx.androidword.Utils.DialogUtils;
+import com.yjx.androidword.Utils.ToastUtils;
 import com.yjx.androidword.Utils.WordsUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class ChooseActivity extends BaseActivity implements View.OnClickListener {
+public class ChooseC2EActivity extends BaseActivity implements View.OnClickListener {
 
     private android.widget.TextView mTxvWord;
     private android.widget.Button mBtnA;
     private android.widget.Button mBtnB;
     private android.widget.Button mBtnC;
     private android.widget.Button mBtnD;
-
+    private android.widget.TextView mTxvGrasp;
+    private Button mBtnNext;
+    //当前考核的 单词和翻译
     private String mString_English = "";
     private String mString_Chinese = "";
-
+    //利用随机数把答案放入选项
     private Random mRandom = new Random();
-    private android.widget.TextView mTxvGrasp;
-    private SQWordsHelper mSQWordsHelper;
+    //词库
     private SQLiteDatabase mSQLiteDatabase;
-
-    private TextView mTxvEnglish;
-    private TextView mTxvChinese;
-    private TextView mTxvDel;
-    private TextView mTxvModify;
     private List<WordsBean> mListWords = new ArrayList<>();
-    private Button mBtnNext;
 
 
     @Override
@@ -51,8 +48,8 @@ public class ChooseActivity extends BaseActivity implements View.OnClickListener
         mBtnD.setOnClickListener(this);
         mBtnNext.setOnClickListener(this);
         mTxvGrasp.setOnClickListener(this);
-        mSQWordsHelper = new SQWordsHelper(mContext);
-        mSQLiteDatabase = mSQWordsHelper.getWritableDatabase();
+        DictionaryHelper SQWordsHelper = new DictionaryHelper(mContext);
+        mSQLiteDatabase = SQWordsHelper.getWritableDatabase();
         mBtnNext.setVisibility(View.GONE);
         //获取需要测试的单词和翻译
         setData();
@@ -66,32 +63,32 @@ public class ChooseActivity extends BaseActivity implements View.OnClickListener
         mString_English = mListWords.get(0).getEnglish();
         mString_Chinese = mListWords.get(0).getChinses();
         //单词发送到TextView上
-        mTxvWord.setText(mString_English);
+        mTxvWord.setText(mString_Chinese);
         //随机选取一个按钮放中文答案,其他按钮放上获取的随机非正确答案
         switch (mRandom.nextInt(4) % (4) + 1) {
             case 1:
-                mBtnA.setText(mString_Chinese);
-                mBtnB.setText(mListWords.get(1).getChinses());
-                mBtnC.setText(mListWords.get(2).getChinses());
-                mBtnD.setText(mListWords.get(3).getChinses());
+                mBtnA.setText(mString_English);
+                mBtnB.setText(mListWords.get(1).getEnglish());
+                mBtnC.setText(mListWords.get(2).getEnglish());
+                mBtnD.setText(mListWords.get(3).getEnglish());
                 break;
             case 2:
-                mBtnB.setText(mString_Chinese);
-                mBtnA.setText(mListWords.get(1).getChinses());
-                mBtnC.setText(mListWords.get(2).getChinses());
-                mBtnD.setText(mListWords.get(3).getChinses());
+                mBtnB.setText(mString_English);
+                mBtnA.setText(mListWords.get(1).getEnglish());
+                mBtnC.setText(mListWords.get(2).getEnglish());
+                mBtnD.setText(mListWords.get(3).getEnglish());
                 break;
             case 3:
-                mBtnC.setText(mString_Chinese);
-                mBtnA.setText(mListWords.get(1).getChinses());
-                mBtnB.setText(mListWords.get(2).getChinses());
-                mBtnD.setText(mListWords.get(3).getChinses());
+                mBtnC.setText(mString_English);
+                mBtnA.setText(mListWords.get(1).getEnglish());
+                mBtnB.setText(mListWords.get(2).getEnglish());
+                mBtnD.setText(mListWords.get(3).getEnglish());
                 break;
             case 4:
-                mBtnD.setText(mString_Chinese);
-                mBtnA.setText(mListWords.get(1).getChinses());
-                mBtnB.setText(mListWords.get(2).getChinses());
-                mBtnC.setText(mListWords.get(3).getChinses());
+                mBtnD.setText(mString_English);
+                mBtnA.setText(mListWords.get(1).getEnglish());
+                mBtnB.setText(mListWords.get(2).getEnglish());
+                mBtnC.setText(mListWords.get(3).getEnglish());
                 break;
         }
     }
@@ -112,27 +109,27 @@ public class ChooseActivity extends BaseActivity implements View.OnClickListener
     @SuppressLint("SetTextI18n")
     private void getJudg(Button btn, String str_btn) {
 
-        if (str_btn.equals(mString_Chinese)) {
+        if (str_btn.equals(mString_English)) {
 
             //选择正确
             btn.setBackground(getResources().getDrawable(R.drawable.btn_green));
 
             if (btn == mBtnA) {
-                mBtnB.setText(mListWords.get(1).getEnglish() + " ： " + mListWords.get(1).getChinses());
-                mBtnC.setText(mListWords.get(2).getEnglish() + " ： " + mListWords.get(2).getChinses());
-                mBtnD.setText(mListWords.get(3).getEnglish() + " ： " + mListWords.get(3).getChinses());
+                mBtnB.setText(mListWords.get(1).getChinses() + " ： " + mListWords.get(1).getEnglish());
+                mBtnC.setText(mListWords.get(2).getChinses() + " ： " + mListWords.get(2).getEnglish());
+                mBtnD.setText(mListWords.get(3).getChinses() + " ： " + mListWords.get(3).getEnglish());
             } else if (btn == mBtnB) {
-                mBtnA.setText(mListWords.get(1).getEnglish() + " ： " + mListWords.get(1).getChinses());
-                mBtnC.setText(mListWords.get(2).getEnglish() + " ： " + mListWords.get(2).getChinses());
-                mBtnD.setText(mListWords.get(3).getEnglish() + " ： " + mListWords.get(3).getChinses());
+                mBtnA.setText(mListWords.get(1).getChinses() + " ： " + mListWords.get(1).getEnglish());
+                mBtnC.setText(mListWords.get(2).getChinses() + " ： " + mListWords.get(2).getEnglish());
+                mBtnD.setText(mListWords.get(3).getChinses() + " ： " + mListWords.get(3).getEnglish());
             } else if (btn == mBtnC) {
-                mBtnA.setText(mListWords.get(1).getEnglish() + " ： " + mListWords.get(1).getChinses());
-                mBtnB.setText(mListWords.get(2).getEnglish() + " ： " + mListWords.get(2).getChinses());
-                mBtnD.setText(mListWords.get(3).getEnglish() + " ： " + mListWords.get(3).getChinses());
+                mBtnA.setText(mListWords.get(1).getChinses() + " ： " + mListWords.get(1).getEnglish());
+                mBtnB.setText(mListWords.get(2).getChinses() + " ： " + mListWords.get(2).getEnglish());
+                mBtnD.setText(mListWords.get(3).getChinses() + " ： " + mListWords.get(3).getEnglish());
             } else if (btn == mBtnD) {
-                mBtnA.setText(mListWords.get(1).getEnglish() + " ： " + mListWords.get(1).getChinses());
-                mBtnB.setText(mListWords.get(2).getEnglish() + " ： " + mListWords.get(2).getChinses());
-                mBtnC.setText(mListWords.get(3).getEnglish() + " ： " + mListWords.get(3).getChinses());
+                mBtnA.setText(mListWords.get(1).getChinses() + " ： " + mListWords.get(1).getEnglish());
+                mBtnB.setText(mListWords.get(2).getChinses() + " ： " + mListWords.get(2).getEnglish());
+                mBtnC.setText(mListWords.get(3).getChinses() + " ： " + mListWords.get(3).getEnglish());
             }
 
         } else {
@@ -140,22 +137,22 @@ public class ChooseActivity extends BaseActivity implements View.OnClickListener
             //选择错误
             btn.setBackground(getResources().getDrawable(R.drawable.btn_red));
 
-            if (btn != mBtnA && mBtnA.getText().toString().equals(mString_Chinese)) {
+            if (btn != mBtnA && mBtnA.getText().toString().equals(mString_English)) {
                 mBtnA.setBackground(getResources().getDrawable(R.drawable.btn_green2));
                 mBtnB.setText(mListWords.get(1).getEnglish() + " ： " + mListWords.get(1).getChinses());
                 mBtnC.setText(mListWords.get(2).getEnglish() + " ： " + mListWords.get(2).getChinses());
                 mBtnD.setText(mListWords.get(3).getEnglish() + " ： " + mListWords.get(3).getChinses());
-            } else if (btn != mBtnB && mBtnB.getText().toString().equals(mString_Chinese)) {
+            } else if (btn != mBtnB && mBtnB.getText().toString().equals(mString_English)) {
                 mBtnB.setBackground(getResources().getDrawable(R.drawable.btn_green2));
                 mBtnA.setText(mListWords.get(1).getEnglish() + " ： " + mListWords.get(1).getChinses());
                 mBtnC.setText(mListWords.get(2).getEnglish() + " ： " + mListWords.get(2).getChinses());
                 mBtnD.setText(mListWords.get(3).getEnglish() + " ： " + mListWords.get(3).getChinses());
-            } else if (btn != mBtnC && mBtnC.getText().toString().equals(mString_Chinese)) {
+            } else if (btn != mBtnC && mBtnC.getText().toString().equals(mString_English)) {
                 mBtnC.setBackground(getResources().getDrawable(R.drawable.btn_green2));
                 mBtnA.setText(mListWords.get(1).getEnglish() + " ： " + mListWords.get(1).getChinses());
                 mBtnB.setText(mListWords.get(2).getEnglish() + " ： " + mListWords.get(2).getChinses());
                 mBtnD.setText(mListWords.get(3).getEnglish() + " ： " + mListWords.get(3).getChinses());
-            } else if (btn != mBtnD && mBtnD.getText().toString().equals(mString_Chinese)) {
+            } else if (btn != mBtnD && mBtnD.getText().toString().equals(mString_English)) {
                 mBtnD.setBackground(getResources().getDrawable(R.drawable.btn_green2));
                 mBtnA.setText(mListWords.get(1).getEnglish() + " ： " + mListWords.get(1).getChinses());
                 mBtnB.setText(mListWords.get(2).getEnglish() + " ： " + mListWords.get(2).getChinses());
@@ -211,24 +208,30 @@ public class ChooseActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.txv_grasp:
                 View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_words_menu, null);
-                mTxvEnglish = view.findViewById(R.id.txv_english);
-                mTxvChinese = view.findViewById(R.id.txv_chinese);
-                mTxvDel = view.findViewById(R.id.txv_del);
-                mTxvModify = view.findViewById(R.id.txv_modify);
-                mTxvEnglish.setText("English：" + mString_English);
-                mTxvChinese.setText("中文：" + mString_Chinese);
-                mTxvDel.setText("掌握（删除）");
-                mTxvModify.setText("取消");
+                TextView txvEnglish = view.findViewById(R.id.edit_english);
+                TextView txvChinese = view.findViewById(R.id.edit_chinese);
+                TextView txvDel = view.findViewById(R.id.txv_del);
+                TextView txvModify = view.findViewById(R.id.txv_modify);
+                txvEnglish.setText(mString_English);
+                txvChinese.setText(mString_Chinese);
+                txvDel.setText("掌握（删除）");
+                txvModify.setText("取消");
                 final Dialog dialog = DialogUtils.show(mContext, view);
-                mTxvDel.setOnClickListener(new View.OnClickListener() {
+                txvDel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         removeData(mString_English);
-                        reSet();
+                        if (cursorCount() < 5) {
+                            finish();
+                            ToastUtils.show(mContext, "词库中单词数量过低，无法继续此模式，请选择填空模式！");
+                        } else {
+                            reSet();
+                            setData();
+                        }
                         dialog.dismiss();
                     }
                 });
-                mTxvModify.setOnClickListener(new View.OnClickListener() {
+                txvModify.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         dialog.dismiss();
@@ -240,8 +243,15 @@ public class ChooseActivity extends BaseActivity implements View.OnClickListener
 
     private void removeData(String str_del) {
         //数据库同步删除
-        String clause = SQWordsHelper.WORD + "=?";
-        mSQLiteDatabase.delete(SQWordsHelper.TABLE_NAME, clause, new String[]{str_del});
+        String clause = DictionaryHelper.ENGLISH + "=?";
+        mSQLiteDatabase.delete(DictionaryHelper.TABLE_NAME, clause, new String[]{str_del});
+    }
+
+    //判断数据库是否为空 true为不空 false为空
+    @SuppressLint("Recycle")
+    private int cursorCount() {
+        Cursor cursor = mSQLiteDatabase.query(DictionaryHelper.TABLE_NAME, null, null, null, null, null, null);
+        return cursor.getCount();
     }
 
 }

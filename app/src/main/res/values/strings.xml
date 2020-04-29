@@ -1,22 +1,48 @@
 <resources>
     <string name="app_name">MyDictionary</string>
 
-    <string name="str_choose">选择模式（中-英）</string>
+    <string name="str_choose">选择模式</string>
+    <string name="str_choose1">选择模式（中-英）</string>
     <string name="str_choose2">选择模式（英-中）</string>
-    <string name="str_fill">填空模式（英-中）</string>
+    <string name="str_fill">填空模式</string>
+    <string name="str_fill1">填空模式（英-中）</string>
     <string name="str_fill2">填空模式（中-英）</string>
     <string name="str_wordselect">词库选择</string>
     <string name="str_addwords">添加单词</string>
-    <string name="str_search">查看当前词库</string>
+    <string name="str_dictionary">词库</string>
     <string name="str_description">软件说明</string>
     <string name="str_about">关于</string>
     <string name="str_english">单词</string>
-    <string name="str_chinese">中文</string>
+    <string name="str_chinese">翻译</string>
     <string name="str_no">×</string>
     <string name="str_yes">√</string>
     <string name="str_del">删除</string>
     <string name="str_modify">修改</string>
+    <string name="str_cancel">取消</string>
     <string name="str_grasp">完全掌握这个单词了</string>
     <string name="str_next">下一个</string>
-    <string name="str_translation">翻译</string>
+
+    <string name="str_aboutme">本软件由\n Android_小黑 \n独立开发,仅供学习交流！小黑微信：yu1563782588</string>
+    <string name="str_help">软件使用说明</string>
+
+    <string name="str_descrip_choose">
+        注意：由于模式特性，你的词库内单词数超过五个才能进入。\n\n
+        进入选择模式后，页面将会随机给出一个单词（或中文），四个选项中有一个选项为正确选项，其余三个为词库中随机获取的非正确选项。\n\n
+        选择任意选项后，除正确答案外，其余选项都将提示出对应的翻译；并且选择正确时所选选项将变为绿色；选择错误时所选选项将变为红色，并且正确答案将会用绿色标出。\n
+        选择完成后，选项右下方会出现一个“下一个”按钮，点击按钮即可刷新当前单词。\n\n
+        点击屏幕下方“完全掌握这个单词了”，可以对本单词进行“掌握（删除）”，词库中将删除此单词。
+    </string>
+
+    <string name="str_descrip_fill">
+        进入填空模式后，页面将随机给出一个单词（或中文），只有在输出框中输入正确答案，并点击输入框右下方的“确定”按钮，才会进行答案的判断。\n\n
+        当填写答案正确时：填写的内容将变为绿色；\n\n
+        当填写答案错误时：填写的内容将变为绿色，并会提示出正确答案；\n\n
+        答案判断完可以点击输入框右下方的“下一个”，刷新当前单词。
+    </string>
+
+    <string name="str_descrip_dictionary">
+        词库列表显示词库内所有单词\n
+        长按任意单词行弹出对话框，通过对话框可所选单词进行删除或更改
+    </string>
+
 </resources>

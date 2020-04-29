@@ -13,7 +13,7 @@ import com.yjx.androidword.R;
 
 import java.util.List;
 
-public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.Viewholder> {
+public class DictionaryAdapter extends RecyclerView.Adapter<DictionaryAdapter.Viewholder> {
 
     private List<WordsBean> mWordsBeanList;
     private View mView;
@@ -33,7 +33,7 @@ public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.Viewholder> 
         void onItemClick(int position);
     }
 
-    public WordsAdapter(List<WordsBean> wordsBeanList) {
+    public DictionaryAdapter(List<WordsBean> wordsBeanList) {
         mWordsBeanList = wordsBeanList;
         notifyDataSetChanged();
     }
@@ -77,8 +77,8 @@ public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.Viewholder> 
 
         public Viewholder(@NonNull View itemView) {
             super(itemView);
-            mTxvEnglish = itemView.findViewById(R.id.txv_english);
-            mTxvChinese = itemView.findViewById(R.id.txv_chinese);
+            mTxvEnglish = itemView.findViewById(R.id.edit_english);
+            mTxvChinese = itemView.findViewById(R.id.edit_chinese);
         }
     }
 
