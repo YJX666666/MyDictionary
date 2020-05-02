@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyDictionary</string>
+    <string name="app_name">小词典</string>
 
     <string name="str_choose">选择模式</string>
     <string name="str_choose1">选择模式（中-英）</string>
@@ -14,13 +14,12 @@
     <string name="str_about">关于</string>
     <string name="str_english">单词</string>
     <string name="str_chinese">翻译</string>
-    <string name="str_no">×</string>
-    <string name="str_yes">√</string>
     <string name="str_del">删除</string>
     <string name="str_modify">修改</string>
     <string name="str_cancel">取消</string>
     <string name="str_grasp">完全掌握这个单词了</string>
     <string name="str_next">下一个</string>
+    <string name="str_yes">下一个</string>
 
     <string name="str_aboutme">本软件由\n Android_小黑 \n独立开发,仅供学习交流！小黑微信：yu1563782588</string>
     <string name="str_help">软件使用说明</string>

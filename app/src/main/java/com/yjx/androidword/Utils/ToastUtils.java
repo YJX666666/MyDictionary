@@ -18,4 +18,15 @@ public class ToastUtils {
     }
 
 
+    //长时间消息
+    public static void showLong(Context context, String msg) {
+        //判断是否第一次弹窗
+        if (sToast==null)
+            sToast = Toast.makeText(context, msg, Toast.LENGTH_LONG);
+        else
+            sToast.setText(msg);
+        sToast.show();
+    }
+
+
 }

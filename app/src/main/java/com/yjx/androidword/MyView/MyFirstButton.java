@@ -19,6 +19,10 @@ public class MyFirstButton extends Button {
         super.setBackgroundResource(R.drawable.btn_background);
         //字体颜色
         super.setTextColor(getResources().getColor(R.color.colorWhite));
+        //取消字母全部大写
+        super.setAllCaps(false);
+        //字体大小
+        super.setTextSize(12);
     }
 
     public MyFirstButton(Context context) {

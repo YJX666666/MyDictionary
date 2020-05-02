@@ -2,8 +2,6 @@ package com.yjx.androidword.Activity;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -13,8 +11,8 @@ import android.widget.TextView;
 import com.yjx.androidword.BaseActivity;
 import com.yjx.androidword.Bean.WordsBean;
 import com.yjx.androidword.R;
-import com.yjx.androidword.SQLiteHelper.DictionaryHelper;
 import com.yjx.androidword.Utils.DialogUtils;
+import com.yjx.androidword.Utils.SQLiteUtils;
 import com.yjx.androidword.Utils.ToastUtils;
 import com.yjx.androidword.Utils.WordsUtils;
 
@@ -29,36 +27,42 @@ public class FillC2EActivity extends BaseActivity implements View.OnClickListene
     private TextView mTxvGrasp;
     private List<WordsBean> mList = new ArrayList<>();
     private TextView mTxvAnswer;
-    private SQLiteDatabase mSQLiteDatabase;
+    //当前单词标记
+    private int index = 0;
 
     @Override
     protected void initData() {
         mBtnNext.setOnClickListener(this);
         mTxvGrasp.setOnClickListener(this);
         mBtnNext.setText("确定");
-        DictionaryHelper SQWordsHelper = new DictionaryHelper(mContext);
-        mSQLiteDatabase = SQWordsHelper.getWritableDatabase();
-
+        //进入时获取词库
+        mList = WordsUtils.get(mContext);
         setData();
-
     }
 
     //答案判断
+    @SuppressLint("SetTextI18n")
     private void getJudg(String answer) {
 
-        if (answer.equals(mList.get(0).getEnglish())) {
+        if (answer.equals(mList.get(index).getEnglish())) {
             mEditAnswer.setTextColor(Color.GREEN);
         } else {
             mEditAnswer.setTextColor(Color.RED);
-            mTxvAnswer.setText(mList.get(0).getEnglish());
+            mTxvAnswer.setText("正确答案：" + mList.get(index).getEnglish());
         }
 
     }
 
     //把获取到的单词传到TextView上
     private void setData() {
-        mList = WordsUtils.getFill(mContext);
-        mTxvWord.setText(mList.get(0).getChinses());
+        //防止背到最后一个单词导致IndexOutOfBoundsException
+        if (index == SQLiteUtils.cursorCount(mContext) - 1) {
+            index = 0;
+        } else {
+            index++;
+        }
+        //传入一个单词
+        mTxvWord.setText(mList.get(index).getChinses());
         mTxvAnswer.setText("");
         mEditAnswer.setTextColor(Color.BLACK);
         mEditAnswer.setText("");
@@ -87,8 +91,8 @@ public class FillC2EActivity extends BaseActivity implements View.OnClickListene
                     if (!TextUtils.isEmpty(mEditAnswer.getText().toString()))
                         getJudg(mEditAnswer.getText().toString());
                     else
-                        mTxvAnswer.setText("正确答案：" + mList.get(0).getEnglish());
-                    mBtnNext.setText("下一个");
+                        mTxvAnswer.setText("正确答案：" + mList.get(index).getEnglish());
+                    mBtnNext.setText(R.string.str_next);
                 } else {
                     mBtnNext.setText("确定");
                     setData();
@@ -102,19 +106,23 @@ public class FillC2EActivity extends BaseActivity implements View.OnClickListene
                 TextView txvChinese = view.findViewById(R.id.edit_chinese);
                 TextView txvDel = view.findViewById(R.id.txv_del);
                 TextView txvModify = view.findViewById(R.id.txv_modify);
-                txvEnglish.setText(mList.get(0).getChinses());
-                txvChinese.setText(mList.get(0).getEnglish());
+                txvEnglish.setText(mList.get(index).getEnglish());
+                txvChinese.setText(mList.get(index).getChinses());
                 txvDel.setText("掌握（删除）");
                 txvModify.setText("取消");
                 final Dialog dialog = DialogUtils.show(mContext, view);
                 txvDel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        removeData(mList.get(0).getChinses());
-                        if (cursorCount() == 0) {
+                        //数据库删除此单词
+                        SQLiteUtils.delete(mContext, mList.get(index).getEnglish());
+                        //当词库单词量不足1时，返回主页面并提示
+                        if (SQLiteUtils.cursorCount(mContext) == 0) {
                             finish();
-                            ToastUtils.show(mContext, "恭喜你，已经掌握所有单词！");
-                        }else{
+                            ToastUtils.showLong(mContext, "恭喜你，已经掌握所有单词！");
+                        } else {
+                            //删除了单词以后需要重新获取词库
+                            mList = WordsUtils.get(mContext);
                             setData();
                         }
                         dialog.dismiss();
@@ -128,20 +136,6 @@ public class FillC2EActivity extends BaseActivity implements View.OnClickListene
                 });
                 break;
         }
-    }
-
-    //数据库同步删除
-    private void removeData(String str_del) {
-        String clause = DictionaryHelper.ENGLISH + "=?";
-        mSQLiteDatabase.delete(DictionaryHelper.TABLE_NAME, clause, new String[]{str_del});
-
-    }
-
-    //判断数据库是否为空 true为不空 false为空
-    @SuppressLint("Recycle")
-    private int cursorCount() {
-        Cursor cursor = mSQLiteDatabase.query(DictionaryHelper.TABLE_NAME, null, null, null, null, null, null);
-        return cursor.getCount();
     }
 
 }
