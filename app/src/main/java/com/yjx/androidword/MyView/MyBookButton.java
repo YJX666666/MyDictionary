@@ -9,34 +9,32 @@ import android.widget.Button;
 import com.yjx.androidword.R;
 
 @SuppressLint("AppCompatCustomView")
-public class MyFirstButton extends Button {
+public class MyBookButton extends Button {
 
     private void set() {
+        //背景  书的图标
+        super.setBackgroundResource(R.mipmap.img_book);
         //字体阴影
         super.setShadowLayer(6, 3, 3, R.color.colorShadowBlack);
         //字体样式
         super.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
-        //背景
-        super.setBackgroundResource(R.drawable.btn_background);
+        //字体大小
+        super.setTextSize(14);
         //字体颜色
         super.setTextColor(getResources().getColor(R.color.colorWhite));
-        //取消字母全部大写
-        super.setAllCaps(false);
-        //字体大小
-        super.setTextSize(12);
     }
 
-    public MyFirstButton(Context context) {
+    public MyBookButton(Context context) {
         super(context);
         set();
     }
 
-    public MyFirstButton(Context context, AttributeSet attrs) {
+    public MyBookButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         set();
     }
 
-    public MyFirstButton(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MyBookButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         set();
     }

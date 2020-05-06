@@ -17,7 +17,6 @@ public class ToastUtils {
         sToast.show();
     }
 
-
     //长时间消息
     public static void showLong(Context context, String msg) {
         //判断是否第一次弹窗

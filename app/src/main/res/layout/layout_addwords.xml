@@ -5,11 +5,53 @@
     android:gravity="center"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <com.yjx.androidword.MyView.MyBookButton
+            android:id="@+id/btn_mschool"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:text="@string/str_mshcool" />
+
+        <com.yjx.androidword.MyView.MyBookButton
+            android:id="@+id/btn_hschool"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="30dp"
+            android:text="@string/str_hshcool" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center">
+
+        <com.yjx.androidword.MyView.MyBookButton
+            android:id="@+id/btn_uni4"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:text="@string/str_uni4" />
+
+        <com.yjx.androidword.MyView.MyBookButton
+            android:id="@+id/btn_uni6"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="30dp"
+            android:text="@string/str_uni6" />
+
+    </LinearLayout>
+
     <com.yjx.androidword.MyView.MyEditText
         android:id="@+id/edit_english"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="30dp"
         android:hint="@string/str_english"
         android:padding="10dp" />

@@ -12,8 +12,8 @@ import com.yjx.androidword.BaseActivity;
 import com.yjx.androidword.Bean.WordsBean;
 import com.yjx.androidword.R;
 import com.yjx.androidword.Utils.DialogUtils;
+import com.yjx.androidword.Utils.NotificationUtils;
 import com.yjx.androidword.Utils.SQLiteUtils;
-import com.yjx.androidword.Utils.ToastUtils;
 import com.yjx.androidword.Utils.WordsUtils;
 
 import java.util.ArrayList;
@@ -44,11 +44,11 @@ public class FillC2EActivity extends BaseActivity implements View.OnClickListene
     @SuppressLint("SetTextI18n")
     private void getJudg(String answer) {
 
-        if (answer.equals(mList.get(index).getEnglish())) {
+        if (answer.equals(mList.get(index).getWord())) {
             mEditAnswer.setTextColor(Color.GREEN);
         } else {
             mEditAnswer.setTextColor(Color.RED);
-            mTxvAnswer.setText("正确答案：" + mList.get(index).getEnglish());
+            mTxvAnswer.setText("正确答案：" + mList.get(index).getWord());
         }
 
     }
@@ -62,7 +62,7 @@ public class FillC2EActivity extends BaseActivity implements View.OnClickListene
             index++;
         }
         //传入一个单词
-        mTxvWord.setText(mList.get(index).getChinses());
+        mTxvWord.setText(mList.get(index).getChinese());
         mTxvAnswer.setText("");
         mEditAnswer.setTextColor(Color.BLACK);
         mEditAnswer.setText("");
@@ -91,7 +91,7 @@ public class FillC2EActivity extends BaseActivity implements View.OnClickListene
                     if (!TextUtils.isEmpty(mEditAnswer.getText().toString()))
                         getJudg(mEditAnswer.getText().toString());
                     else
-                        mTxvAnswer.setText("正确答案：" + mList.get(index).getEnglish());
+                        mTxvAnswer.setText("正确答案：" + mList.get(index).getWord());
                     mBtnNext.setText(R.string.str_next);
                 } else {
                     mBtnNext.setText("确定");
@@ -101,13 +101,13 @@ public class FillC2EActivity extends BaseActivity implements View.OnClickListene
                 break;
 
             case R.id.txv_grasp://掌握了单词
-                View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_words_menu, null);
+                View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_dictionary_menu, null);
                 TextView txvEnglish = view.findViewById(R.id.edit_english);
                 TextView txvChinese = view.findViewById(R.id.edit_chinese);
                 TextView txvDel = view.findViewById(R.id.txv_del);
                 TextView txvModify = view.findViewById(R.id.txv_modify);
-                txvEnglish.setText(mList.get(index).getEnglish());
-                txvChinese.setText(mList.get(index).getChinses());
+                txvEnglish.setText(mList.get(index).getWord());
+                txvChinese.setText(mList.get(index).getChinese());
                 txvDel.setText("掌握（删除）");
                 txvModify.setText("取消");
                 final Dialog dialog = DialogUtils.show(mContext, view);
@@ -115,11 +115,14 @@ public class FillC2EActivity extends BaseActivity implements View.OnClickListene
                     @Override
                     public void onClick(View v) {
                         //数据库删除此单词
-                        SQLiteUtils.delete(mContext, mList.get(index).getEnglish());
+                        SQLiteUtils.delete(mContext, mList.get(index).getWord());
                         //当词库单词量不足1时，返回主页面并提示
                         if (SQLiteUtils.cursorCount(mContext) == 0) {
+                            NotificationUtils.show(mContext,
+                                    "温馨提示",
+                                    "词库中没有单词，无法继续此模式，请添加单词！"
+                                    , AddWordsActivity.class);
                             finish();
-                            ToastUtils.showLong(mContext, "恭喜你，已经掌握所有单词！");
                         } else {
                             //删除了单词以后需要重新获取词库
                             mList = WordsUtils.get(mContext);

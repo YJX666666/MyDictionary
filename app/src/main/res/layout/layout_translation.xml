@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/str_chinese2"
+        android:textSize="30sp" />
+
+    <com.yjx.androidword.MyView.MyEditText
+        android:id="@+id/edit_chinese"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/str_chinese2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_translation_result"
+            android:textSize="26sp" />
+
+        <TextView
+            android:id="@+id/txv_en_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="26sp" />
+
+    </LinearLayout>
+
+    <com.yjx.androidword.MyView.MyFirstButton
+        android:id="@+id/btn_zh2en"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/str_translation2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/str_english2"
+        android:textSize="30sp" />
+
+    <com.yjx.androidword.MyView.MyEditText
+        android:id="@+id/edit_english"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/str_english2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_translation_result"
+            android:textSize="26sp" />
+
+        <TextView
+            android:id="@+id/txv_zh_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="26sp" />
+
+    </LinearLayout>
+
+    <com.yjx.androidword.MyView.MyFirstButton
+        android:id="@+id/btn_en2zh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/str_translation2" />
+
+</LinearLayout>

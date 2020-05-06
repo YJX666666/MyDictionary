@@ -11,9 +11,9 @@ import com.yjx.androidword.BaseActivity;
 import com.yjx.androidword.Bean.WordsBean;
 import com.yjx.androidword.R;
 import com.yjx.androidword.Utils.DialogUtils;
+import com.yjx.androidword.Utils.NotificationUtils;
 import com.yjx.androidword.Utils.RandomUtils;
 import com.yjx.androidword.Utils.SQLiteUtils;
-import com.yjx.androidword.Utils.ToastUtils;
 import com.yjx.androidword.Utils.WordsUtils;
 
 import java.util.ArrayList;
@@ -74,7 +74,7 @@ public class ChooseE2CActivity extends BaseActivity implements View.OnClickListe
                 setData();
                 break;
             case R.id.txv_grasp://掌握了单词
-                View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_words_menu, null);
+                View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_dictionary_menu, null);
                 TextView txvEnglish = view.findViewById(R.id.edit_english);
                 TextView txvChinese = view.findViewById(R.id.edit_chinese);
                 TextView txvDel = view.findViewById(R.id.txv_del);
@@ -89,8 +89,11 @@ public class ChooseE2CActivity extends BaseActivity implements View.OnClickListe
                     public void onClick(View v) {
                         SQLiteUtils.delete(mContext, mString_English);
                         if (SQLiteUtils.cursorCount(mContext) < 5) {
+                            NotificationUtils.show(mContext,
+                                    "温馨提示",
+                                    "词库中单词数量过低，无法继续此模式，请选择填空模式或添加单词！"
+                                    , AddWordsActivity.class);
                             finish();
-                            ToastUtils.showLong(mContext, "词库中单词数量过低，无法继续此模式，请选择填空模式！");
                         } else {
                             //删除了单词以后，List需要重新获取一下词库数据
                             mListWords = WordsUtils.get(mContext);
@@ -119,12 +122,12 @@ public class ChooseE2CActivity extends BaseActivity implements View.OnClickListe
             index++;
         }
         //需要测试的组赋值
-        mString_English = mListWords.get(index).getEnglish();
-        mString_Chinese = mListWords.get(index).getChinses();
+        mString_English = mListWords.get(index).getWord();
+        mString_Chinese = mListWords.get(index).getChinese();
         //单词发送到TextView上
         mTxvWord.setText(mString_English);
         //获取三个随机非正确答案的下标
-        List<Integer> list3Random = RandomUtils.get3Random(mContext,index);
+        List<Integer> list3Random = RandomUtils.get3Random(mContext, index);
         index2 = list3Random.get(0);
         index3 = list3Random.get(1);
         index4 = list3Random.get(2);
@@ -132,27 +135,27 @@ public class ChooseE2CActivity extends BaseActivity implements View.OnClickListe
         switch (mRandom.nextInt(4) % (4) + 1) {
             case 1:
                 mBtnA.setText(mString_Chinese);
-                mBtnB.setText(mListWords.get(index2).getChinses());
-                mBtnC.setText(mListWords.get(index3).getChinses());
-                mBtnD.setText(mListWords.get(index4).getChinses());
+                mBtnB.setText(mListWords.get(index2).getChinese());
+                mBtnC.setText(mListWords.get(index3).getChinese());
+                mBtnD.setText(mListWords.get(index4).getChinese());
                 break;
             case 2:
                 mBtnB.setText(mString_Chinese);
-                mBtnA.setText(mListWords.get(index2).getChinses());
-                mBtnC.setText(mListWords.get(index3).getChinses());
-                mBtnD.setText(mListWords.get(index4).getChinses());
+                mBtnA.setText(mListWords.get(index2).getChinese());
+                mBtnC.setText(mListWords.get(index3).getChinese());
+                mBtnD.setText(mListWords.get(index4).getChinese());
                 break;
             case 3:
                 mBtnC.setText(mString_Chinese);
-                mBtnA.setText(mListWords.get(index2).getChinses());
-                mBtnB.setText(mListWords.get(index3).getChinses());
-                mBtnD.setText(mListWords.get(index4).getChinses());
+                mBtnA.setText(mListWords.get(index2).getChinese());
+                mBtnB.setText(mListWords.get(index3).getChinese());
+                mBtnD.setText(mListWords.get(index4).getChinese());
                 break;
             case 4:
                 mBtnD.setText(mString_Chinese);
-                mBtnA.setText(mListWords.get(index2).getChinses());
-                mBtnB.setText(mListWords.get(index3).getChinses());
-                mBtnC.setText(mListWords.get(index4).getChinses());
+                mBtnA.setText(mListWords.get(index2).getChinese());
+                mBtnB.setText(mListWords.get(index3).getChinese());
+                mBtnC.setText(mListWords.get(index4).getChinese());
                 break;
         }
     }
@@ -167,21 +170,21 @@ public class ChooseE2CActivity extends BaseActivity implements View.OnClickListe
             btn.setBackgroundResource(R.drawable.btn_green);
 
             if (btn == mBtnA) {
-                mBtnB.setText(mListWords.get(index2).getEnglish() + " ： " + mListWords.get(index2).getChinses());
-                mBtnC.setText(mListWords.get(index3).getEnglish() + " ： " + mListWords.get(index3).getChinses());
-                mBtnD.setText(mListWords.get(index4).getEnglish() + " ： " + mListWords.get(index4).getChinses());
+                mBtnB.setText(mListWords.get(index2).getWord() + " ： " + mListWords.get(index2).getChinese());
+                mBtnC.setText(mListWords.get(index3).getWord() + " ： " + mListWords.get(index3).getChinese());
+                mBtnD.setText(mListWords.get(index4).getWord() + " ： " + mListWords.get(index4).getChinese());
             } else if (btn == mBtnB) {
-                mBtnA.setText(mListWords.get(index2).getEnglish() + " ： " + mListWords.get(index2).getChinses());
-                mBtnC.setText(mListWords.get(index3).getEnglish() + " ： " + mListWords.get(index3).getChinses());
-                mBtnD.setText(mListWords.get(index4).getEnglish() + " ： " + mListWords.get(index4).getChinses());
+                mBtnA.setText(mListWords.get(index2).getWord() + " ： " + mListWords.get(index2).getChinese());
+                mBtnC.setText(mListWords.get(index3).getWord() + " ： " + mListWords.get(index3).getChinese());
+                mBtnD.setText(mListWords.get(index4).getWord() + " ： " + mListWords.get(index4).getChinese());
             } else if (btn == mBtnC) {
-                mBtnA.setText(mListWords.get(index2).getEnglish() + " ： " + mListWords.get(index2).getChinses());
-                mBtnB.setText(mListWords.get(index3).getEnglish() + " ： " + mListWords.get(index3).getChinses());
-                mBtnD.setText(mListWords.get(index4).getEnglish() + " ： " + mListWords.get(index4).getChinses());
+                mBtnA.setText(mListWords.get(index2).getWord() + " ： " + mListWords.get(index2).getChinese());
+                mBtnB.setText(mListWords.get(index3).getWord() + " ： " + mListWords.get(index3).getChinese());
+                mBtnD.setText(mListWords.get(index4).getWord() + " ： " + mListWords.get(index4).getChinese());
             } else if (btn == mBtnD) {
-                mBtnA.setText(mListWords.get(index2).getEnglish() + " ： " + mListWords.get(index2).getChinses());
-                mBtnB.setText(mListWords.get(index3).getEnglish() + " ： " + mListWords.get(index3).getChinses());
-                mBtnC.setText(mListWords.get(index4).getEnglish() + " ： " + mListWords.get(index4).getChinses());
+                mBtnA.setText(mListWords.get(index2).getWord() + " ： " + mListWords.get(index2).getChinese());
+                mBtnB.setText(mListWords.get(index3).getWord() + " ： " + mListWords.get(index3).getChinese());
+                mBtnC.setText(mListWords.get(index4).getWord() + " ： " + mListWords.get(index4).getChinese());
             }
 
         } else {
@@ -191,24 +194,24 @@ public class ChooseE2CActivity extends BaseActivity implements View.OnClickListe
 
             if (btn != mBtnA && mBtnA.getText().toString().equals(mString_Chinese)) {
                 mBtnA.setBackgroundResource(R.drawable.btn_green2);
-                mBtnB.setText(mListWords.get(index2).getEnglish() + " ： " + mListWords.get(index2).getChinses());
-                mBtnC.setText(mListWords.get(index3).getEnglish() + " ： " + mListWords.get(index3).getChinses());
-                mBtnD.setText(mListWords.get(index4).getEnglish() + " ： " + mListWords.get(index4).getChinses());
+                mBtnB.setText(mListWords.get(index2).getWord() + " ： " + mListWords.get(index2).getChinese());
+                mBtnC.setText(mListWords.get(index3).getWord() + " ： " + mListWords.get(index3).getChinese());
+                mBtnD.setText(mListWords.get(index4).getWord() + " ： " + mListWords.get(index4).getChinese());
             } else if (btn != mBtnB && mBtnB.getText().toString().equals(mString_Chinese)) {
                 mBtnB.setBackgroundResource(R.drawable.btn_green2);
-                mBtnA.setText(mListWords.get(index2).getEnglish() + " ： " + mListWords.get(index2).getChinses());
-                mBtnC.setText(mListWords.get(index3).getEnglish() + " ： " + mListWords.get(index3).getChinses());
-                mBtnD.setText(mListWords.get(index4).getEnglish() + " ： " + mListWords.get(index4).getChinses());
+                mBtnA.setText(mListWords.get(index2).getWord() + " ： " + mListWords.get(index2).getChinese());
+                mBtnC.setText(mListWords.get(index3).getWord() + " ： " + mListWords.get(index3).getChinese());
+                mBtnD.setText(mListWords.get(index4).getWord() + " ： " + mListWords.get(index4).getChinese());
             } else if (btn != mBtnC && mBtnC.getText().toString().equals(mString_Chinese)) {
                 mBtnC.setBackgroundResource(R.drawable.btn_green2);
-                mBtnA.setText(mListWords.get(index2).getEnglish() + " ： " + mListWords.get(index2).getChinses());
-                mBtnB.setText(mListWords.get(index3).getEnglish() + " ： " + mListWords.get(index3).getChinses());
-                mBtnD.setText(mListWords.get(index4).getEnglish() + " ： " + mListWords.get(index4).getChinses());
+                mBtnA.setText(mListWords.get(index2).getWord() + " ： " + mListWords.get(index2).getChinese());
+                mBtnB.setText(mListWords.get(index3).getWord() + " ： " + mListWords.get(index3).getChinese());
+                mBtnD.setText(mListWords.get(index4).getWord() + " ： " + mListWords.get(index4).getChinese());
             } else if (btn != mBtnD && mBtnD.getText().toString().equals(mString_Chinese)) {
                 mBtnD.setBackgroundResource(R.drawable.btn_green2);
-                mBtnA.setText(mListWords.get(index2).getEnglish() + " ： " + mListWords.get(index2).getChinses());
-                mBtnB.setText(mListWords.get(index3).getEnglish() + " ： " + mListWords.get(index3).getChinses());
-                mBtnC.setText(mListWords.get(index4).getEnglish() + " ： " + mListWords.get(index4).getChinses());
+                mBtnA.setText(mListWords.get(index2).getWord() + " ： " + mListWords.get(index2).getChinese());
+                mBtnB.setText(mListWords.get(index3).getWord() + " ： " + mListWords.get(index3).getChinese());
+                mBtnC.setText(mListWords.get(index4).getWord() + " ： " + mListWords.get(index4).getChinese());
             }
 
         }

@@ -1,14 +1,14 @@
 package com.yjx.androidword.Activity;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -18,158 +18,130 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.yjx.androidword.Adapter.DictionaryAdapter;
 import com.yjx.androidword.BaseActivity;
 import com.yjx.androidword.Bean.WordsBean;
-import com.yjx.androidword.MyView.MyEditText;
 import com.yjx.androidword.R;
 import com.yjx.androidword.SQLiteHelper.DictionaryHelper;
 import com.yjx.androidword.Utils.DialogUtils;
+import com.yjx.androidword.Utils.NotificationUtils;
+import com.yjx.androidword.Utils.SQLiteUtils;
 import com.yjx.androidword.Utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DictionaryActivity extends BaseActivity {
+public class DictionaryActivity extends BaseActivity implements View.OnClickListener {
 
     private androidx.recyclerview.widget.RecyclerView mRecycleWords;
-    private WordsBean mWordsBean;
-    private DictionaryAdapter mWordsAdapter;
-    private List<WordsBean> mWordsBeanList = new ArrayList<>();
-    private DictionaryHelper mSQWordsHelper;
+    private List<WordsBean> mWordsList = new ArrayList<>();
     private SQLiteDatabase mSQLiteDatabase;
-    private Cursor mCursor;
-    private LinearLayoutManager mLinearLayoutManager;
 
-    //View
-    private TextView mTxvDel;
-    private TextView mTxvEnglish;
-    private TextView mTxvChinese;
-    private TextView mTxvModify;
-    private MyEditText mEditEnglish;
-    private MyEditText mEditChinese;
-    private TextView mTxvCancel;
+    private android.widget.Button mBtnDelete;
+    private LinearLayoutManager mManager;
+    private com.yjx.androidword.MyView.MyEditText mEditSearchWord;
+    private Button mBtnSearch;
+    private DictionaryAdapter mAdapter;
 
     @Override
     protected void initData() {
-        mSQWordsHelper = new DictionaryHelper(mContext);
-        mSQLiteDatabase = mSQWordsHelper.getWritableDatabase();
+        mBtnSearch.setOnClickListener(this);
+        mBtnDelete.setOnClickListener(this);
+        DictionaryHelper SQWordsHelper = new DictionaryHelper(mContext);
+        mSQLiteDatabase = SQWordsHelper.getWritableDatabase();
 
         //获取数据库中的数据,传入List
         getData();
 
-        mWordsAdapter = new DictionaryAdapter(mWordsBeanList);
-        mRecycleWords.setAdapter(mWordsAdapter);
-
+        mAdapter = new DictionaryAdapter(mContext, mWordsList);
+        mRecycleWords.setAdapter(mAdapter);
         //布局管理器
-        mLinearLayoutManager = new LinearLayoutManager(mContext);
-        mLinearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        mRecycleWords.setLayoutManager(mLinearLayoutManager);
+        mManager = new LinearLayoutManager(mContext);
+        mManager.setOrientation(RecyclerView.VERTICAL);
+        mRecycleWords.setLayoutManager(mManager);
         //子项动画
         mRecycleWords.setItemAnimator(new DefaultItemAnimator());
         //子项分割线
         mRecycleWords.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
-
-
-        mWordsAdapter.setOnItemClickListener(new DictionaryAdapter.OnItemClick() {
-            @Override
-            public void onItemClick(int position) {
-                Toast.makeText(mContext, "点击的位置：" + position, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-        mWordsAdapter.setOnItemLongClickListener(new DictionaryAdapter.OnItemClick() {
-            @Override
-            public void onItemClick(final int position) {
-                View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_words_menu, null);
-                final Dialog dialog = DialogUtils.show(mContext, view);
-                mTxvDel = view.findViewById(R.id.txv_del);
-                mTxvEnglish = view.findViewById(R.id.edit_english);
-                mTxvChinese = view.findViewById(R.id.edit_chinese);
-                mTxvModify = view.findViewById(R.id.txv_modify);
-                mTxvEnglish.setText(mWordsBeanList.get(position).getEnglish());
-                mTxvChinese.setText(mWordsBeanList.get(position).getChinses());
-                mTxvDel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                        removeData(position, mWordsBeanList.get(position).getEnglish());
-                    }
-                });
-                mTxvModify.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                        View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_modify, null);
-                        final Dialog dialog = DialogUtils.show(mContext, view);
-                        mEditEnglish = view.findViewById(R.id.edit_english);
-                        mEditChinese = view.findViewById(R.id.edit_chinese);
-                        mTxvModify = view.findViewById(R.id.txv_modify);
-                        mTxvCancel = view.findViewById(R.id.txv_cancel);
-                        mEditEnglish.setText(mWordsBeanList.get(position).getEnglish());
-                        mEditChinese.setText(mWordsBeanList.get(position).getChinses());
-                        mTxvCancel.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                dialog.dismiss();
-                            }
-                        });
-                        mTxvModify.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                if (!TextUtils.isEmpty(mEditEnglish.getText().toString()) && !TextUtils.isEmpty(mEditChinese.getText().toString())) {
-                                    modifyData(mWordsBeanList.get(position).getEnglish(), mEditEnglish.getText().toString(), mEditChinese.getText().toString());
-                                    ToastUtils.show(mContext, "修改成功！");
-                                    dialog.dismiss();
-                                    mWordsBeanList.get(position).setEnglish(mEditEnglish.getText().toString());
-                                    mWordsBeanList.get(position).setChinses(mEditChinese.getText().toString());
-                                    mWordsAdapter.notifyItemChanged(position);
-                                } else {
-                                    ToastUtils.show(mContext, "修改后的单词或翻译不能为空噢！");
-                                }
-                            }
-                        });
-                    }
-                });
-            }
-        });
-
     }
 
-    private void modifyData(String oldEnglish, String newEnglish, String newChinese) {
-        ContentValues values = new ContentValues();
-        values.put(DictionaryHelper.ENGLISH, newEnglish);
-        values.put(DictionaryHelper.CHINESE, newChinese);
-        mSQLiteDatabase.update(DictionaryHelper.TABLE_NAME, values, "word=?", new String[]{oldEnglish});
+    private void searchData(String str) {
+        for (int i = 0; i < mWordsList.size(); i++) {
+            if (TextUtils.equals(str, mWordsList.get(i).getWord()))
+                moveToPosition(i);
+        }
     }
 
-    private void removeData(int position, String str_del) {
-        //当前List删除
-        mWordsBeanList.remove(position);
-        //RecycleView移除
-        mWordsAdapter.notifyItemRemoved(position);
-        //调用局部刷新.防止position错乱
-        mWordsAdapter.notifyItemRangeChanged(position, mWordsBeanList.size() - position);
-        //数据库同步删除
-        String clause = DictionaryHelper.ENGLISH + "=?";
-        mSQLiteDatabase.delete(DictionaryHelper.TABLE_NAME, clause, new String[]{str_del});
+    //根据 position 跳转至RecycleView的某个子项位置
+    private void moveToPosition(int position) {
+        mManager.scrollToPositionWithOffset(position, 0);
+        mManager.setStackFromEnd(true);
     }
 
+    //获取词库数据
     private void getData() {
-        mCursor = mSQLiteDatabase.query(DictionaryHelper.TABLE_NAME, null, null, null, null, null, null);
-        while (mCursor.moveToNext()) {
-            mWordsBean = new WordsBean();
-            mWordsBean.setEnglish(mCursor.getString(0));
-            mWordsBean.setChinses(mCursor.getString(1));
-            mWordsBeanList.add(mWordsBean);
+        Cursor cursor = mSQLiteDatabase.query(DictionaryHelper.TABLE_NAME, null, null, null, null, null, null);
+        while (cursor.moveToNext()) {
+            WordsBean wordsBean = new WordsBean();
+            wordsBean.setWord(cursor.getString(0));
+            wordsBean.setChinese(cursor.getString(1));
+            mWordsList.add(wordsBean);
         }
     }
 
     @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_search://按单词查找
+                if (!TextUtils.isEmpty(mEditSearchWord.getText().toString()))
+                    searchData(mEditSearchWord.getText().toString());
+                else
+                    ToastUtils.show(mContext, "查找的单词不能为空噢！");
+                break;
+            case R.id.btn_delete://清空词库
+                showDialog();
+                break;
+        }
+    }
+
+    //清空单词确定对话框
+    @SuppressLint("SetTextI18n")
+    private void showDialog() {
+        @SuppressLint("InflateParams") View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_finish, null);
+        final Dialog dialog = DialogUtils.show(mContext, view);
+        TextView mTxvTitle = view.findViewById(R.id.txv_title);
+        TextView mTxvText = view.findViewById(R.id.txv_text);
+        Button mBtnYes = view.findViewById(R.id.btn_yes);
+        Button mBtnNo = view.findViewById(R.id.btn_no);
+        mTxvTitle.setText("确定删除");
+        mTxvText.setText("确定删除词库中所有单词吗？");
+        mBtnYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NotificationUtils.show(mContext,
+                        "温馨提示",
+                        "整整删除了：" + SQLiteUtils.calern(mContext) + "个单词！词库中没有单词了哦！"
+                        , AddWordsActivity.class);
+                dialog.dismiss();
+                finish();
+            }
+        });
+        mBtnNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }
+
+    @Override
     protected int initLayout() {
-        return R.layout.layout_words;
+        return R.layout.layout_dictionary;
     }
 
     @Override
     protected void initView() {
         mRecycleWords = findViewById(R.id.recycle_words);
+        mBtnDelete = findViewById(R.id.btn_delete);
+        mEditSearchWord = findViewById(R.id.edit_search_word);
+        mBtnSearch = findViewById(R.id.btn_search);
     }
+
 }

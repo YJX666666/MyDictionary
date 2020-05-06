@@ -51,7 +51,7 @@
             android:layout_gravity="right"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:text="@string/str_yes"
+            android:text="@string/str_next"
             android:textSize="12sp" />
 
     </LinearLayout>

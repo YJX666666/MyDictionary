@@ -5,10 +5,8 @@ import android.content.Intent;
 
 public class JumpUtils {
 
-    private static Intent sIntent;
-
     public static void To(Context context, Class<?> cla) {
-        sIntent = new Intent(context, cla);
+        Intent sIntent = new Intent(context, cla);
         context.startActivity(sIntent);
     }
 

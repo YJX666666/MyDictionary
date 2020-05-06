@@ -1,22 +1,31 @@
 package com.yjx.androidword.Bean;
 
 public class WordsBean {
-    String english;
-    String chinses;
+    String word;
+    String chinese;
+    String sound;
 
-    public String getEnglish() {
-        return english;
+    public String getSound() {
+        return sound;
     }
 
-    public void setEnglish(String english) {
-        this.english = english;
+    public void setSound(String sound) {
+        this.sound = sound;
     }
 
-    public String getChinses() {
-        return chinses;
+    public String getWord() {
+        return word;
     }
 
-    public void setChinses(String chinses) {
-        this.chinses = chinses;
+    public void setWord(String word) {
+        this.word = word;
+    }
+
+    public String getChinese() {
+        return chinese;
+    }
+
+    public void setChinese(String chinese) {
+        this.chinese = chinese;
     }
 }

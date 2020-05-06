@@ -78,7 +78,7 @@
         android:layout_marginLeft="80dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="80dp"
-        android:text="@string/str_description" />
+        android:text="@string/str_help" />
 
     <TextView
         android:id="@+id/txv_about"

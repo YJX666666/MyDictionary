@@ -8,8 +8,8 @@ public class DictionaryHelper extends SQLiteOpenHelper {
 
     public static final String ENGLISH = "word";
     public static final String CHINESE = "chinese";
-    public static final String DB_NAME = ENGLISH + "s.db";
-    public static final String TABLE_NAME = ENGLISH + "s";
+    public static final String DB_NAME = "words.db";
+    public static final String TABLE_NAME = "words";
 
     public DictionaryHelper(Context context) {
         super(context, DB_NAME, null, 1);

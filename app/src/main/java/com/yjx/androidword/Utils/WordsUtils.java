@@ -32,8 +32,8 @@ public class WordsUtils {
             bean = new WordsBean();
             String english = cursor.getString(0);
             String chinese = cursor.getString(1);
-            bean.setEnglish(english);
-            bean.setChinses(chinese);
+            bean.setWord(english);
+            bean.setChinese(chinese);
             list.add(bean);
         }
 
