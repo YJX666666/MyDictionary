@@ -1,7 +1,6 @@
 package com.yjx.androidword.Utils;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.View;
@@ -12,12 +11,13 @@ import com.yjx.androidword.R;
 public class DialogUtils {
 
     //自定义View对话框
-    public static Dialog show(Context context, View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context)
-                .setView(view)
-                .setCancelable(true);
-        Dialog dialog = builder.show();
+    public static AlertDialog show(Context context, View view) {
+        AlertDialog dialog = new AlertDialog.Builder(context).create();
+        dialog.setView(view);
+        dialog.setCancelable(true);
+        //设置外部背景，dialog外面的那部分黑色
         dialog.getWindow().getDecorView().setBackground(null);
+        dialog.show();
         return dialog;
     }
 
@@ -30,7 +30,9 @@ public class DialogUtils {
                 .setCancelable(false)
                 .setPositiveButton("关闭", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) { }})
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
                 .setNegativeButton("去添加单词", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

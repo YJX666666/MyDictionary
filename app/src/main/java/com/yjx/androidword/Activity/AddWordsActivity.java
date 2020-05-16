@@ -31,6 +31,7 @@ public class AddWordsActivity extends BaseActivity implements View.OnClickListen
     private com.yjx.androidword.MyView.MyBookButton mBtnHschool;
     private com.yjx.androidword.MyView.MyBookButton mBtnUni4;
     private com.yjx.androidword.MyView.MyBookButton mBtnUni6;
+    private android.widget.Spinner mSpinnerPort;
 
     @Override
     protected void initData() {
@@ -42,8 +43,8 @@ public class AddWordsActivity extends BaseActivity implements View.OnClickListen
         mBtnHschool.setOnClickListener(this);
         mBtnUni4.setOnClickListener(this);
         mBtnUni6.setOnClickListener(this);
-
     }
+
 
     @SuppressLint("SetTextI18n")
     private void showDialog(final String bookName) {
@@ -61,7 +62,7 @@ public class AddWordsActivity extends BaseActivity implements View.OnClickListen
                 BookUtils.add(mContext, bookName);
                 NotificationUtils.show(mContext,
                         "添加成功！",
-                        bookName + "词汇已经添加到词库里面啦！赶快来背诵吧！"
+                        bookName + "词汇已经添加到词库里面啦！赶快去背诵吧！"
                         , ChooseE2CActivity.class);
                 dialog.dismiss();
             }
@@ -92,9 +93,11 @@ public class AddWordsActivity extends BaseActivity implements View.OnClickListen
             case R.id.btn_add://添加单词
                 String english = mEditEnglish.getText().toString();
                 String chinese = mEditChinese.getText().toString();
-                if (!TextUtils.isEmpty(english) && !TextUtils.isEmpty(chinese))
-                    initSQLiteData(english, chinese);
-                else
+                String port = mSpinnerPort.getSelectedItem().toString();
+                if (!TextUtils.isEmpty(english) && !TextUtils.isEmpty(chinese)) {
+                    if (!port.equals("词性"))
+                        initSQLiteData(english, port + chinese);
+                } else
                     ToastUtils.show(mContext, "单词或翻译都不能为空噢！");
                 break;
         }
@@ -127,6 +130,7 @@ public class AddWordsActivity extends BaseActivity implements View.OnClickListen
         mBtnHschool = findViewById(R.id.btn_hschool);
         mBtnUni4 = findViewById(R.id.btn_uni4);
         mBtnUni6 = findViewById(R.id.btn_uni6);
+        mSpinnerPort = findViewById(R.id.spinner_port);
     }
 
 }

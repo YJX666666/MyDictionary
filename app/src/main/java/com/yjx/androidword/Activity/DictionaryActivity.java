@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -66,6 +67,8 @@ public class DictionaryActivity extends BaseActivity implements View.OnClickList
         for (int i = 0; i < mWordsList.size(); i++) {
             if (TextUtils.equals(str, mWordsList.get(i).getWord()))
                 moveToPosition(i);
+            else
+                ToastUtils.show(mContext, "词库中查无此“词”！", Gravity.CENTER);
         }
     }
 
@@ -93,7 +96,7 @@ public class DictionaryActivity extends BaseActivity implements View.OnClickList
                 if (!TextUtils.isEmpty(mEditSearchWord.getText().toString()))
                     searchData(mEditSearchWord.getText().toString());
                 else
-                    ToastUtils.show(mContext, "查找的单词不能为空噢！");
+                    ToastUtils.show(mContext, "查找的单词不能为空噢！", Gravity.CENTER);
                 break;
             case R.id.btn_delete://清空词库
                 showDialog();

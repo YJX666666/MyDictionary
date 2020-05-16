@@ -1,61 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="250dp"
-    android:layout_height="120dp"
-    android:background="@drawable/stroke_kuang"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/txv_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:shadowColor="@color/colorBlack"
-        android:shadowDy="10"
-        android:shadowRadius="10"
-        android:text="@string/str_exit"
-        android:textColor="@color/colorWhite"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/txv_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="@string/str_exitapp"
-        android:textColor="#534E39" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20sp"
-        android:gravity="center">
+        android:background="@drawable/background_stroke"
+        android:gravity="center"
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_yes"
-            android:layout_width="70dp"
-            android:layout_height="35dp"
-            android:background="@drawable/btn_finish_yes"
+        <TextView
+            android:id="@+id/txv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
             android:shadowColor="@color/colorBlack"
             android:shadowDy="10"
             android:shadowRadius="10"
-            android:text="@string/str_yes"
-            android:textColor="@color/colorWhite" />
+            android:text="@string/str_exit"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/btn_no"
-            android:layout_width="70dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/btn_finish_no"
-            android:shadowColor="@color/colorBlack"
-            android:shadowDy="10"
-            android:shadowRadius="10"
-            android:text="@string/str_no"
-            android:textColor="@color/colorWhite" />
+        <TextView
+            android:id="@+id/txv_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/str_exitapp"
+            android:textColor="#534E39" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn_yes"
+                android:layout_width="70dp"
+                android:layout_height="35dp"
+                android:background="@drawable/btn_finish_yes"
+                android:shadowColor="@color/colorBlack"
+                android:shadowDy="10"
+                android:shadowRadius="10"
+                android:text="@string/str_yes"
+                android:textColor="@color/colorWhite" />
+
+            <Button
+                android:id="@+id/btn_no"
+                android:layout_width="70dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/btn_finish_no"
+                android:shadowColor="@color/colorBlack"
+                android:shadowDy="10"
+                android:shadowRadius="10"
+                android:text="@string/str_no"
+                android:textColor="@color/colorWhite" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

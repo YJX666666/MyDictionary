@@ -51,18 +51,32 @@
         进入填空模式后，页面将随机给出一个单词（或中文），只有在输出框中输入正确答案，并点击输入框右下方的“确定”按钮，才会进行答案的判断。\n\n
         当填写答案正确时：填写的内容将变为绿色；\n\n
         当填写答案错误时：填写的内容将变为绿色，并会提示出正确答案；\n\n
-        答案判断完可以点击输入框右下方的“下一个”，刷新当前单词。
+        答案判断完可以点击输入框右下方的“下一个”，刷新当前单词。\n\n
+        点击输入框下侧“完全掌握这个单词了”，可以对本单词进行“掌握（删除）”，词库中将删除此单词。
     </string>
     <string name="str_descrip_dictionary">
         词库列表显示词库内所有单词\n
+        搜索：在顶部搜索框中输入想要搜索的单词，点击“查找”按钮，即可找到所查找单词的位置\n\n
+        清空：点击右上角“清空词库”按钮即可清空词库所有单词（不可恢复，谨慎处理！）\n\n
         长按任意单词行弹出对话框，通过对话框可所选单词进行删除或更改
     </string>
     <string name="str_translation_result">翻译结果：</string>
 
-
-    <string-array name="dictionary_limmit">
-        <item>按单词查找</item>
-        <item>按翻译查找</item>
+    <!--词性 ：名词、介词、形容词、副词、数词、动词、及物动词、不及物动词、代词、连词、感叹词、冠词 -->
+    <string-array name="word_part">
+        <item>词性</item>
+        <item>n.</item>
+        <item>prep.</item>
+        <item>adj.</item>
+        <item>adv.</item>
+        <item>num.</item>
+        <item>v.</item>
+        <item>vt.</item>
+        <item>vi.</item>
+        <item>pron.</item>
+        <item>conj.</item>
+        <item>int.</item>
+        <item>art.</item>
     </string-array>
-
+    
 </resources>
