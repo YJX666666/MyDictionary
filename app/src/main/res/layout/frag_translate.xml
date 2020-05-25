@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <com.yjx.androidword.MyView.MyTranslateButton
+        android:id="@+id/btn_translate_enzh"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:drawableLeft="@mipmap/img_translate_enzh"
+        android:text="@string/str_translate_enzh"
+        tools:ignore="RtlHardcoded" />
+
+    <com.yjx.androidword.MyView.MyTranslateButton
+        android:id="@+id/btn_translation_more"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1"
+        android:drawableLeft="@mipmap/img_translate"
+        android:text="@string/str_translate_more"
+        tools:ignore="RtlHardcoded" />
+
+</LinearLayout>

@@ -61,9 +61,9 @@
             android:layout_gravity="right"
             android:layout_marginEnd="10dp"
             android:text="@string/str_next"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            tools:ignore="RtlHardcoded" />
 
     </LinearLayout>
-
 
 </LinearLayout>

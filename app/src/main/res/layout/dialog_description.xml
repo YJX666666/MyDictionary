@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_stroke"
+    android:background="@drawable/bg_stroke"
     android:orientation="vertical">
 
     <LinearLayout
@@ -31,7 +31,7 @@
             android:layout_height="30dp"
             android:layout_gravity="end"
             android:layout_marginTop="-50dp"
-            android:background="@drawable/img_back" />
+            android:background="@drawable/img_error" />
 
     </LinearLayout>
 
@@ -49,7 +49,7 @@
             android:background="@drawable/txv_stroke"
             android:gravity="center"
             android:text="@string/str_choose"
-            android:textSize="18sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/txv_mode_fill"
@@ -58,7 +58,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/str_fill"
-            android:textSize="18sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/txv_dictionary"
@@ -67,7 +67,16 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/str_dictionary"
-            android:textSize="18sp" />
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/txv_translate"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/str_translate"
+            android:textSize="12sp" />
 
     </LinearLayout>
 

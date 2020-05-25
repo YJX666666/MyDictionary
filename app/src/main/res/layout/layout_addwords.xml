@@ -67,13 +67,13 @@
             android:id="@+id/spinner_port"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@drawable/btn_background"
+            android:background="@drawable/btn_first_bg"
             android:entries="@array/word_part"
             android:gravity="center"
-            android:popupBackground="@drawable/btn_background" />
+            android:popupBackground="@drawable/btn_first_bg" />
 
         <com.yjx.androidword.MyView.MyEditText
-            android:id="@+id/edit_chinese"
+            android:id="@+id/edit_from"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/str_chinese"

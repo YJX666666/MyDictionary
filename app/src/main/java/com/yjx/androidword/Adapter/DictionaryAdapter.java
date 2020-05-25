@@ -1,5 +1,6 @@
 package com.yjx.androidword.Adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Context;
@@ -26,9 +27,9 @@ import java.util.List;
 public class DictionaryAdapter extends RecyclerView.Adapter<DictionaryAdapter.Viewholder> {
 
     private Context mContext;
-    private List<WordsBean> mWordsBeanList;
+    private List<WordsBean> mList;
 
-    //View
+    // 对话框View
     private TextView mTxvDel;
     private TextView mTxvEnglish;
     private TextView mTxvChinese;
@@ -39,7 +40,7 @@ public class DictionaryAdapter extends RecyclerView.Adapter<DictionaryAdapter.Vi
 
     public DictionaryAdapter(Context context, List<WordsBean> wordsBeanList) {
         mContext = context;
-        mWordsBeanList = wordsBeanList;
+        mList = wordsBeanList;
     }
 
     @NonNull
@@ -49,62 +50,55 @@ public class DictionaryAdapter extends RecyclerView.Adapter<DictionaryAdapter.Vi
         return new Viewholder(mView);
     }
 
-    //删除单词
-    private void removeData(int position, String str_del) {
-        //当前List删除
-        mWordsBeanList.remove(position);
-        //RecycleView移除
-        notifyItemRemoved(position);
-        //调用局部刷新.防止position错乱
-        notifyItemRangeChanged(position, mWordsBeanList.size() - position);
-        //数据库同步删除
-        SQLiteUtils.delete(mContext, str_del);
-    }
-
-    //修改单词
-    private void modifyData(String oldEnglish, String newEnglish, String newChinese) {
-        ContentValues cv = new ContentValues();
-        cv.put(DictionaryHelper.ENGLISH, newEnglish);
-        cv.put(DictionaryHelper.CHINESE, newChinese);
-        SQLiteUtils.upData(cv, oldEnglish);
+    //在Activity中调用方法，实现搜索并高亮显示
+    private int posit = -1;
+    public void setItem(int position) {
+        this.posit = position;
+        notifyItemChanged(position);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final Viewholder holder, final int position) {
-        holder.mTxvEnglish.setText(mWordsBeanList.get(position).getWord());
-        holder.mTxvChinese.setText(mWordsBeanList.get(position).getChinese());
+        holder.mTxvEnglish.setText(mList.get(position).getWord());
+        holder.mTxvChinese.setText(mList.get(position).getChinese());
+
+        if (posit == position) {
+            holder.mItemView.setBackgroundResource(R.color.btn_blue);
+        } else {
+            holder.mItemView.setBackground(null);
+        }
 
         //子项长按事件 单词管理  删除 & 修改
         holder.mItemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_dictionary_menu, null);
+                @SuppressLint("InflateParams") View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_dictionary_menu, null);
                 final Dialog dialog = DialogUtils.show(mContext, view);
                 mTxvDel = view.findViewById(R.id.txv_del);
                 mTxvEnglish = view.findViewById(R.id.edit_english);
-                mTxvChinese = view.findViewById(R.id.edit_chinese);
+                mTxvChinese = view.findViewById(R.id.edit_from);
                 mTxvModify = view.findViewById(R.id.txv_modify);
-                mTxvEnglish.setText(mWordsBeanList.get(position).getWord());
-                mTxvChinese.setText(mWordsBeanList.get(position).getChinese());
+                mTxvEnglish.setText(mList.get(position).getWord());
+                mTxvChinese.setText(mList.get(position).getChinese());
                 mTxvDel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         dialog.dismiss();
-                        removeData(position, mWordsBeanList.get(position).getWord());
+                        removeData(position, mList.get(position).getWord());
                     }
                 });
                 mTxvModify.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         dialog.dismiss();
-                        View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_modify, null);
+                        @SuppressLint("InflateParams") View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_modify, null);
                         final Dialog dialog = DialogUtils.show(mContext, view);
                         mEditEnglish = view.findViewById(R.id.edit_english);
-                        mEditChinese = view.findViewById(R.id.edit_chinese);
+                        mEditChinese = view.findViewById(R.id.edit_from);
                         mTxvModify = view.findViewById(R.id.txv_modify);
                         mTxvCancel = view.findViewById(R.id.txv_cancel);
-                        mEditEnglish.setText(mWordsBeanList.get(position).getWord());
-                        mEditChinese.setText(mWordsBeanList.get(position).getChinese());
+                        mEditEnglish.setText(mList.get(position).getWord());
+                        mEditChinese.setText(mList.get(position).getChinese());
                         mTxvCancel.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -115,11 +109,11 @@ public class DictionaryAdapter extends RecyclerView.Adapter<DictionaryAdapter.Vi
                             @Override
                             public void onClick(View v) {
                                 if (!TextUtils.isEmpty(mEditEnglish.getText().toString()) && !TextUtils.isEmpty(mEditChinese.getText().toString())) {
-                                    modifyData(mWordsBeanList.get(position).getWord(), mEditEnglish.getText().toString(), mEditChinese.getText().toString());
+                                    modifyData(mList.get(position).getWord(), mEditEnglish.getText().toString(), mEditChinese.getText().toString());
                                     ToastUtils.show(mContext, "修改成功！");
                                     dialog.dismiss();
-                                    mWordsBeanList.get(position).setWord(mEditEnglish.getText().toString());
-                                    mWordsBeanList.get(position).setChinese(mEditChinese.getText().toString());
+                                    mList.get(position).setWord(mEditEnglish.getText().toString());
+                                    mList.get(position).setChinese(mEditChinese.getText().toString());
                                     notifyItemChanged(position);
                                 } else {
                                     ToastUtils.show(mContext, "修改后的单词或翻译不能为空噢！");
@@ -134,21 +128,41 @@ public class DictionaryAdapter extends RecyclerView.Adapter<DictionaryAdapter.Vi
 
     }
 
-    @Override
-    public int getItemCount() {
-        return mWordsBeanList.size();
+    //删除单词
+    private void removeData(int position, String str_del) {
+        //当前List删除
+        mList.remove(position);
+        //RecycleView移除
+        notifyItemRemoved(position);
+        //调用局部刷新.防止position错乱
+        notifyItemRangeChanged(position, mList.size() - position);
+        //数据库同步删除
+        SQLiteUtils.delete(mContext, str_del);
     }
 
-    public class Viewholder extends RecyclerView.ViewHolder {
+    //修改单词
+    private void modifyData(String oldEnglish, String newEnglish, String newChinese) {
+        ContentValues cv = new ContentValues();
+        cv.put(DictionaryHelper.ENGLISH, newEnglish);
+        cv.put(DictionaryHelper.CHINESE, newChinese);
+        SQLiteUtils.upData(cv, oldEnglish);
+    }
+
+    @Override
+    public int getItemCount() {
+        return mList.size();
+    }
+
+    class Viewholder extends RecyclerView.ViewHolder {
         private LinearLayout mItemView;
         private TextView mTxvEnglish;
         private TextView mTxvChinese;
 
-        public Viewholder(@NonNull View itemView) {
+        Viewholder(@NonNull View itemView) {
             super(itemView);
             mItemView = itemView.findViewById(R.id.item_view);
             mTxvEnglish = itemView.findViewById(R.id.edit_english);
-            mTxvChinese = itemView.findViewById(R.id.edit_chinese);
+            mTxvChinese = itemView.findViewById(R.id.edit_from);
         }
     }
 

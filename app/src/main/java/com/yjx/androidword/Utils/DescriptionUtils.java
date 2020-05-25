@@ -17,16 +17,20 @@ public class DescriptionUtils {
     private static TextView mTxvModeFill;
     private static TextView mTxvDescription;
     private static TextView mTxvDictionary;
+    private static TextView mTxvTranslate;
+
+
 
     //软件说明对话框
     public static void showDescription(Context context) {
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_description, null);
+        @SuppressLint("InflateParams") View view = LayoutInflater.from(context).inflate(R.layout.dialog_description, null);
         //软件说明
         Button btnDismiss = view.findViewById(R.id.btn_dismiss);
         mTxvModeChoose = view.findViewById(R.id.txv_mode_choose);
         mTxvModeFill = view.findViewById(R.id.txv_mode_fill);
         mTxvDescription = view.findViewById(R.id.txv_description);
         mTxvDictionary = view.findViewById(R.id.txv_dictionary);
+        mTxvTranslate = view.findViewById(R.id.txv_translate);
         final Dialog dialog = DialogUtils.show(context, view);
         btnDismiss.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,6 +46,7 @@ public class DescriptionUtils {
                 mTxvModeChoose.setBackgroundResource(R.drawable.txv_stroke);
                 mTxvModeFill.setBackground(null);
                 mTxvDictionary.setBackground(null);
+                mTxvTranslate.setBackground(null);
                 mTxvDescription.setText(R.string.str_descrip_choose);
             }
         });
@@ -52,6 +57,7 @@ public class DescriptionUtils {
                 mTxvModeFill.setBackgroundResource(R.drawable.txv_stroke);
                 mTxvModeChoose.setBackground(null);
                 mTxvDictionary.setBackground(null);
+                mTxvTranslate.setBackground(null);
                 mTxvDescription.setText(R.string.str_descrip_fill);
             }
         });
@@ -61,7 +67,18 @@ public class DescriptionUtils {
                 mTxvDictionary.setBackgroundResource(R.drawable.txv_stroke);
                 mTxvModeChoose.setBackground(null);
                 mTxvModeFill.setBackground(null);
+                mTxvTranslate.setBackground(null);
                 mTxvDescription.setText(R.string.str_descrip_dictionary);
+            }
+        });
+        mTxvTranslate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTxvTranslate.setBackgroundResource(R.drawable.txv_stroke);
+                mTxvModeChoose.setBackground(null);
+                mTxvModeFill.setBackground(null);
+                mTxvDictionary.setBackground(null);
+                mTxvDescription.setText(R.string.str_descrip_translation);
             }
         });
     }

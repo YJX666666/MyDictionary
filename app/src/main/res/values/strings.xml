@@ -10,17 +10,16 @@
     <string name="str_fill2">填空模式（中-英）</string>
     <string name="str_addwords">添加单词</string>
     <string name="str_dictionary">词库</string>
-    <string name="str_translation">在线中英翻译</string>
+    <string name="str_translate_enzh">中英互译</string>
+    <string name="str_translate">在线翻译</string>
+    <string name="str_translate_more">多语言翻译</string>
     <string name="str_help">软件使用说明</string>
-    <string name="str_about">关于</string>
 
     <!--功能-->
     <string name="str_delete">清空词库</string>
     <string name="str_english">单词</string>
-    <string name="str_english2">英 -> 中</string>
     <string name="str_chinese">翻译</string>
-    <string name="str_chinese2">中 -> 英</string>
-    <string name="str_translation2">点击翻译</string>
+    <string name="str_translation_result">翻译结果</string>
     <string name="str_del">删除</string>
     <string name="str_modify">修改</string>
     <string name="str_cancel">取消</string>
@@ -31,6 +30,10 @@
     <string name="str_exitapp">确定退出软件？</string>
     <string name="str_yes">确定</string>
     <string name="str_no">取消</string>
+    <string name="str_zhoren">中文/英文</string>
+    <string name="str_please_input">请输入需要翻译的文本</string>
+    <string name="str_i">个人中心</string>
+    <string name="str_recite_words">背单词</string>
 
     <!--单词本-->
     <string name="str_uni4">大学四级\n5197词</string>
@@ -60,7 +63,86 @@
         清空：点击右上角“清空词库”按钮即可清空词库所有单词（不可恢复，谨慎处理！）\n\n
         长按任意单词行弹出对话框，通过对话框可所选单词进行删除或更改
     </string>
-    <string name="str_translation_result">翻译结果：</string>
+    <string name="str_descrip_translation">
+        注意：中英互译功能为网络功能（需要数据连接）\n\n
+        在输入框内输入需要翻译的中文（或英文），点击“翻译”按钮即可得到对应的翻译\n\n
+        网络连接较慢时，请耐心等候翻译结果，无需多次点击“翻译”按钮
+    </string>
+
+    <string name="str_modify_aims">修改每日目标</string>
+    <string name="str_right"><![CDATA[>]]></string>
+    <string name="str_from_labguage">原文的语言类型：</string>
+    <string name="str_to_language">译文的语言类型：</string>
+    <string name="str_tip_copy">Tip:点击翻译结果框可复制翻译结果至手机剪切板！</string>
+    <string name="str_save">保存修改</string>
+    <string name="str_max_length_13">昵称最长为13个字符</string>
+    <string name="str_max_length_40">签名最长为40个字符</string>
+    <string name="str_today_goal">今日目标</string>
+    <string name="str_today_ok">今日已完成</string>
+
+
+    <string-array name="language_from">
+        <item>自动检测</item>
+        <item>中文</item>
+        <item>英文</item>
+        <item>粤语</item>
+        <item>文言文</item>
+        <item>日语</item>
+        <item>韩语</item>
+        <item>法语</item>
+        <item>西班牙语</item>
+        <item>泰语</item>
+        <item>阿拉伯语</item>
+        <item>俄语</item>
+        <item>葡萄牙语</item>
+        <item>德语</item>
+        <item>意大利语</item>
+        <item>希腊语</item>
+        <item>荷兰语</item>
+        <item>波兰语</item>
+        <item>保加利亚语</item>
+        <item>爱沙尼亚语</item>
+        <item>丹麦语</item>
+        <item>芬兰语</item>
+        <item>捷克语</item>
+        <item>罗马尼亚语</item>
+        <item>斯洛文尼亚语</item>
+        <item>瑞典语</item>
+        <item>匈牙利语</item>
+        <item>繁体中文</item>
+        <item>越南语</item>
+    </string-array>
+
+    <string-array name="language_to">
+        <item>中文</item>
+        <item>英文</item>
+        <item>粤语</item>
+        <item>文言文</item>
+        <item>日语</item>
+        <item>韩语</item>
+        <item>法语</item>
+        <item>西班牙语</item>
+        <item>泰语</item>
+        <item>阿拉伯语</item>
+        <item>俄语</item>
+        <item>葡萄牙语</item>
+        <item>德语</item>
+        <item>意大利语</item>
+        <item>希腊语</item>
+        <item>荷兰语</item>
+        <item>波兰语</item>
+        <item>保加利亚语</item>
+        <item>爱沙尼亚语</item>
+        <item>丹麦语</item>
+        <item>芬兰语</item>
+        <item>捷克语</item>
+        <item>罗马尼亚语</item>
+        <item>斯洛文尼亚语</item>
+        <item>瑞典语</item>
+        <item>匈牙利语</item>
+        <item>繁体中文</item>
+        <item>越南语</item>
+    </string-array>
 
     <!--词性 ：名词、介词、形容词、副词、数词、动词、及物动词、不及物动词、代词、连词、感叹词、冠词 -->
     <string-array name="word_part">
@@ -78,5 +160,5 @@
         <item>int.</item>
         <item>art.</item>
     </string-array>
-    
+
 </resources>

@@ -11,13 +11,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.yjx.androidword.Adapter.DictionaryAdapter;
-import com.yjx.androidword.BaseActivity;
+import com.yjx.androidword.Base.BaseActivity;
 import com.yjx.androidword.Bean.WordsBean;
 import com.yjx.androidword.R;
 import com.yjx.androidword.SQLiteHelper.DictionaryHelper;
@@ -32,7 +31,7 @@ import java.util.List;
 public class DictionaryActivity extends BaseActivity implements View.OnClickListener {
 
     private androidx.recyclerview.widget.RecyclerView mRecycleWords;
-    private List<WordsBean> mWordsList = new ArrayList<>();
+    private List<WordsBean> mList;
     private SQLiteDatabase mSQLiteDatabase;
 
     private android.widget.Button mBtnDelete;
@@ -51,41 +50,44 @@ public class DictionaryActivity extends BaseActivity implements View.OnClickList
         //获取数据库中的数据,传入List
         getData();
 
-        mAdapter = new DictionaryAdapter(mContext, mWordsList);
+        mAdapter = new DictionaryAdapter(mContext, mList);
         mRecycleWords.setAdapter(mAdapter);
         //布局管理器
         mManager = new LinearLayoutManager(mContext);
         mManager.setOrientation(RecyclerView.VERTICAL);
         mRecycleWords.setLayoutManager(mManager);
-        //子项动画
-        mRecycleWords.setItemAnimator(new DefaultItemAnimator());
         //子项分割线
         mRecycleWords.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
     }
 
     private void searchData(String str) {
-        for (int i = 0; i < mWordsList.size(); i++) {
-            if (TextUtils.equals(str, mWordsList.get(i).getWord()))
+        for (int i = 0; i < mList.size(); i++) {
+            if (TextUtils.equals(str, mList.get(i).getWord())) {
                 moveToPosition(i);
-            else
+                break;
+            } else if (i == mList.size() - 1)
                 ToastUtils.show(mContext, "词库中查无此“词”！", Gravity.CENTER);
         }
     }
 
     //根据 position 跳转至RecycleView的某个子项位置
     private void moveToPosition(int position) {
+        //高亮显示
+        mAdapter.setItem(position);
+//        mRecycleWords.scrollToPosition(position);
         mManager.scrollToPositionWithOffset(position, 0);
         mManager.setStackFromEnd(true);
     }
 
     //获取词库数据
     private void getData() {
-        Cursor cursor = mSQLiteDatabase.query(DictionaryHelper.TABLE_NAME, null, null, null, null, null, null);
+        mList = new ArrayList<>();
+        @SuppressLint("Recycle") Cursor cursor = mSQLiteDatabase.query(DictionaryHelper.TABLE_NAME, null, null, null, null, null, null);
         while (cursor.moveToNext()) {
             WordsBean wordsBean = new WordsBean();
             wordsBean.setWord(cursor.getString(0));
             wordsBean.setChinese(cursor.getString(1));
-            mWordsList.add(wordsBean);
+            mList.add(wordsBean);
         }
     }
 

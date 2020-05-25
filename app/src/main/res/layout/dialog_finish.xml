@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical">
 
-
     <LinearLayout
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_stroke"
+        android:background="@drawable/bg_stroke"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="20dp"
+        tools:ignore="UselessParent">
 
         <TextView
             android:id="@+id/txv_title"
@@ -19,10 +21,10 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:shadowColor="@color/colorBlack"
-            android:shadowDy="10"
-            android:shadowRadius="10"
+            android:shadowDy="5"
+            android:shadowRadius="5"
             android:text="@string/str_exit"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/btn_blue"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -50,7 +52,8 @@
                 android:shadowDy="10"
                 android:shadowRadius="10"
                 android:text="@string/str_yes"
-                android:textColor="@color/colorWhite" />
+                android:textColor="@color/colorWhite"
+                tools:ignore="ButtonStyle" />
 
             <Button
                 android:id="@+id/btn_no"
@@ -62,7 +65,8 @@
                 android:shadowDy="10"
                 android:shadowRadius="10"
                 android:text="@string/str_no"
-                android:textColor="@color/colorWhite" />
+                android:textColor="@color/colorWhite"
+                tools:ignore="ButtonStyle" />
 
         </LinearLayout>
 

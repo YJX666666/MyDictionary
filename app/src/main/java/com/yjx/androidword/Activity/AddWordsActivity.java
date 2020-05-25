@@ -11,10 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.yjx.androidword.BaseActivity;
+import com.yjx.androidword.Base.BaseActivity;
 import com.yjx.androidword.R;
 import com.yjx.androidword.SQLiteHelper.DictionaryHelper;
-import com.yjx.androidword.Utils.BookUtils;
+import com.yjx.androidword.Utils.AddBookUtils;
 import com.yjx.androidword.Utils.DialogUtils;
 import com.yjx.androidword.Utils.NotificationUtils;
 import com.yjx.androidword.Utils.ToastUtils;
@@ -59,7 +59,7 @@ public class AddWordsActivity extends BaseActivity implements View.OnClickListen
         mBtnYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BookUtils.add(mContext, bookName);
+                AddBookUtils.add(mContext, bookName);
                 NotificationUtils.show(mContext,
                         "添加成功！",
                         bookName + "词汇已经添加到词库里面啦！赶快去背诵吧！"
@@ -124,7 +124,7 @@ public class AddWordsActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void initView() {
         mEditEnglish = findViewById(R.id.edit_english);
-        mEditChinese = findViewById(R.id.edit_chinese);
+        mEditChinese = findViewById(R.id.edit_from);
         mBtnAdd = findViewById(R.id.btn_add);
         mBtnMschool = findViewById(R.id.btn_mschool);
         mBtnHschool = findViewById(R.id.btn_hschool);

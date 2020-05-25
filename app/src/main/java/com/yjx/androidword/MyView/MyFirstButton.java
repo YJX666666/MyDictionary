@@ -17,7 +17,7 @@ public class MyFirstButton extends Button {
         //字体样式
         super.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
         //背景
-        super.setBackgroundResource(R.drawable.btn_background);
+        super.setBackgroundResource(R.drawable.btn_first_bg);
         //字体颜色
         super.setTextColor(getResources().getColor(R.color.colorWhite));
         //取消字母全部大写

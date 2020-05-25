@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_rewords"
+        android:icon="@mipmap/img_book_small"
+        android:title="@string/str_recite_words" />
+
+    <item
+        android:id="@+id/menu_translate"
+        android:icon="@mipmap/img_translate"
+        android:title="@string/str_translate" />
+    <item
+        android:id="@+id/menu_person"
+        android:icon="@mipmap/img_person"
+        android:title="@string/str_i" />
+
+</menu>

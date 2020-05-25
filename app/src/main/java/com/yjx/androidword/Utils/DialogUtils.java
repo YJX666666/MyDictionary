@@ -3,6 +3,8 @@ package com.yjx.androidword.Utils;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.provider.Settings;
 import android.view.View;
 
 import com.yjx.androidword.Activity.AddWordsActivity;
@@ -21,8 +23,8 @@ public class DialogUtils {
         return dialog;
     }
 
-    //简单提示对话框
-    public static void show(final Context context, String msg) {
+    //简单提示对话框（去添加单词）
+    public static void show(final Context context, String msg, final String btn_str) {
         new AlertDialog.Builder(context)
                 .setMessage(msg)
                 .setTitle("温馨提示")
@@ -33,10 +35,13 @@ public class DialogUtils {
                     public void onClick(DialogInterface dialog, int which) {
                     }
                 })
-                .setNegativeButton("去添加单词", new DialogInterface.OnClickListener() {
+                .setNegativeButton(btn_str, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        JumpUtils.To(context, AddWordsActivity.class);
+                        if (btn_str.equals("去添加单词"))
+                            JumpUtils.To(context, AddWordsActivity.class);
+                        else if (btn_str.equals("去连接网络"))
+                            context.startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
                     }
                 })
                 .show();

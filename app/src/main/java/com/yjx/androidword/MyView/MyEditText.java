@@ -15,7 +15,7 @@ public class MyEditText extends EditText {
         //单行输出
         setSingleLine(true);
         //字体大小
-        setTextSize(22);
+        setTextSize(16);
         //设置内部元素对齐方式
         setGravity(Gravity.CENTER);
         //设置背景

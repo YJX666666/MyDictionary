@@ -7,11 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.yjx.androidword.BaseActivity;
+import com.yjx.androidword.Base.BaseActivity;
 import com.yjx.androidword.Bean.WordsBean;
 import com.yjx.androidword.R;
 import com.yjx.androidword.Utils.DialogUtils;
 import com.yjx.androidword.Utils.NotificationUtils;
+import com.yjx.androidword.Utils.OverWordsNumUtils;
 import com.yjx.androidword.Utils.RandomUtils;
 import com.yjx.androidword.Utils.SQLiteUtils;
 import com.yjx.androidword.Utils.WordsUtils;
@@ -48,7 +49,6 @@ public class ChooseC2EActivity extends BaseActivity implements View.OnClickListe
         mBtnD.setOnClickListener(this);
         mBtnNext.setOnClickListener(this);
         mTxvGrasp.setOnClickListener(this);
-
         //获取打乱顺序的词库
         mListWords = WordsUtils.get(mContext);
         //首次进入设置一个单词
@@ -75,9 +75,9 @@ public class ChooseC2EActivity extends BaseActivity implements View.OnClickListe
                 setData();
                 break;
             case R.id.txv_grasp://掌握了单词
-                View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_dictionary_menu, null);
+                @SuppressLint("InflateParams") View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_dictionary_menu, null);
                 TextView txvEnglish = view.findViewById(R.id.edit_english);
-                TextView txvChinese = view.findViewById(R.id.edit_chinese);
+                TextView txvChinese = view.findViewById(R.id.edit_from);
                 TextView txvDel = view.findViewById(R.id.txv_del);
                 TextView txvModify = view.findViewById(R.id.txv_modify);
                 txvEnglish.setText(mString_English);
@@ -165,6 +165,9 @@ public class ChooseC2EActivity extends BaseActivity implements View.OnClickListe
     @SuppressLint("SetTextI18n")
     private void getJudg(Button btn, String str_btn) {
 
+        // 每次选完就可以加一个数量
+        OverWordsNumUtils.add(mContext);
+
         if (str_btn.equals(mString_English)) {
 
             //选择正确
@@ -198,17 +201,17 @@ public class ChooseC2EActivity extends BaseActivity implements View.OnClickListe
                 mBtnB.setText(mListWords.get(index2).getWord() + " ： " + mListWords.get(index2).getChinese());
                 mBtnC.setText(mListWords.get(index3).getWord() + " ： " + mListWords.get(index3).getChinese());
                 mBtnD.setText(mListWords.get(index4).getWord() + " ： " + mListWords.get(index4).getChinese());
-            } else if (btn != mBtnB && mBtnB.getText().toString().equals(mString_Chinese)) {
+            } else if (btn != mBtnB && mBtnB.getText().toString().equals(mString_English)) {
                 mBtnB.setBackgroundResource(R.drawable.btn_green2);
                 mBtnA.setText(mListWords.get(index2).getWord() + " ： " + mListWords.get(index2).getChinese());
                 mBtnC.setText(mListWords.get(index3).getWord() + " ： " + mListWords.get(index3).getChinese());
                 mBtnD.setText(mListWords.get(index4).getWord() + " ： " + mListWords.get(index4).getChinese());
-            } else if (btn != mBtnC && mBtnC.getText().toString().equals(mString_Chinese)) {
+            } else if (btn != mBtnC && mBtnC.getText().toString().equals(mString_English)) {
                 mBtnC.setBackgroundResource(R.drawable.btn_green2);
                 mBtnA.setText(mListWords.get(index2).getWord() + " ： " + mListWords.get(index2).getChinese());
                 mBtnB.setText(mListWords.get(index3).getWord() + " ： " + mListWords.get(index3).getChinese());
                 mBtnD.setText(mListWords.get(index4).getWord() + " ： " + mListWords.get(index4).getChinese());
-            } else if (btn != mBtnD && mBtnD.getText().toString().equals(mString_Chinese)) {
+            } else if (btn != mBtnD && mBtnD.getText().toString().equals(mString_English)) {
                 mBtnD.setBackgroundResource(R.drawable.btn_green2);
                 mBtnA.setText(mListWords.get(index2).getWord() + " ： " + mListWords.get(index2).getChinese());
                 mBtnB.setText(mListWords.get(index3).getWord() + " ： " + mListWords.get(index3).getChinese());
@@ -230,10 +233,10 @@ public class ChooseC2EActivity extends BaseActivity implements View.OnClickListe
         //隐藏“下一个”按钮
         mBtnNext.setVisibility(View.GONE);
         //重置背景
-        mBtnA.setBackgroundResource(R.drawable.btn_background);
-        mBtnB.setBackgroundResource(R.drawable.btn_background);
-        mBtnC.setBackgroundResource(R.drawable.btn_background);
-        mBtnD.setBackgroundResource(R.drawable.btn_background);
+        mBtnA.setBackgroundResource(R.drawable.btn_first_bg);
+        mBtnB.setBackgroundResource(R.drawable.btn_first_bg);
+        mBtnC.setBackgroundResource(R.drawable.btn_first_bg);
+        mBtnD.setBackgroundResource(R.drawable.btn_first_bg);
         //重置状态
         mBtnA.setEnabled(true);
         mBtnB.setEnabled(true);

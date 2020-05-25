@@ -7,7 +7,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:gravity="center">
+        android:gravity="center"
+        android:padding="4dp">
 
         <com.yjx.androidword.MyView.MyEditText
             android:id="@+id/edit_search_word"
@@ -16,22 +17,19 @@
             android:layout_weight="1"
             android:hint="@string/str_english" />
 
-        <Button
+        <com.yjx.androidword.MyView.MyFirstButton
             android:id="@+id/btn_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorLightYellow"
-            android:text="@string/str_search"
-            android:textSize="12sp" />
+            android:layout_marginStart="5dp"
+            android:text="@string/str_search" />
 
-        <Button
+        <com.yjx.androidword.MyView.MyFirstButton
             android:id="@+id/btn_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
-            android:background="@color/colorLightYellow"
-            android:text="@string/str_delete"
-            android:textSize="12sp" />
+            android:text="@string/str_delete" />
 
     </LinearLayout>
 
@@ -45,7 +43,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/str_english"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/btn_blue"
             android:textSize="26sp" />
 
         <TextView
@@ -54,14 +52,16 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/str_chinese"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/btn_blue"
             android:textSize="26sp" />
 
     </LinearLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_words"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 
 </LinearLayout>

@@ -8,11 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import com.yjx.androidword.BaseActivity;
+import com.yjx.androidword.Base.BaseActivity;
 import com.yjx.androidword.Bean.WordsBean;
 import com.yjx.androidword.R;
 import com.yjx.androidword.Utils.DialogUtils;
 import com.yjx.androidword.Utils.NotificationUtils;
+import com.yjx.androidword.Utils.OverWordsNumUtils;
 import com.yjx.androidword.Utils.SQLiteUtils;
 import com.yjx.androidword.Utils.WordsUtils;
 
@@ -43,6 +44,9 @@ public class FillE2CActivity extends BaseActivity implements View.OnClickListene
     //答案判断
     @SuppressLint("SetTextI18n")
     private void getJudg(String answer) {
+
+        // 每次选完就可以加一个数量
+        OverWordsNumUtils.add(mContext);
 
         if (answer.equals(mList.get(index).getChinese())) {
             mEditAnswer.setTextColor(Color.GREEN);
@@ -101,9 +105,9 @@ public class FillE2CActivity extends BaseActivity implements View.OnClickListene
                 break;
 
             case R.id.txv_grasp://掌握了单词
-                View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_dictionary_menu, null);
+                @SuppressLint("InflateParams") View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_dictionary_menu, null);
                 TextView txvEnglish = view.findViewById(R.id.edit_english);
-                TextView txvChinese = view.findViewById(R.id.edit_chinese);
+                TextView txvChinese = view.findViewById(R.id.edit_from);
                 TextView txvDel = view.findViewById(R.id.txv_del);
                 TextView txvModify = view.findViewById(R.id.txv_modify);
                 txvEnglish.setText(mList.get(index).getWord());

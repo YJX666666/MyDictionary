@@ -33,6 +33,16 @@ dependencies {
     //OkHttp（网络请求框架）
     implementation 'com.squareup.okhttp3:okhttp:3.12.1'
 
+    //Retrofit(基于OKHTTP封装的网络请求库)
+    //noinspection GradleDependency
+    implementation 'com.squareup.retrofit2:retrofit:2.0.2'
+
     //fastjson
     implementation 'com.alibaba:fastjson:1.1.71.android'
+
+    //圆形图片控件 CircleImageView
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+
+    //GIF
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.15'
 }
