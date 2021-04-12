@@ -27,9 +27,9 @@ public class BaiDuUtils {
     // 请求地址
     private static final String URL = "https://fanyi-api.baidu.com/api/trans/vip/translate";
     // 应用id
-    private static final String APP_ID = "20180228000128664";
+    private static final String APP_ID = "";
     // 密钥
-    private static final String KEY = "oRmdA1xBIGVFemsMKtLZ";
+    private static final String KEY = "";
     // 随机数对象
     private static Random sRandom = new Random();
 
